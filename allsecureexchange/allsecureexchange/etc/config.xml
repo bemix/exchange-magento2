@@ -13,7 +13,7 @@
             <allsecureexchange_creditcard>
                 <active>1</active>
                 <model>allsecureexchange\allsecureexchange\Model\Payment\CreditCard</model>
-                <title>allsecureexchange Credit Card</title>
+                <title>Credit Cards</title>
                 <order_status>pending</order_status>
                 <allowspecific>0</allowspecific>
                 <sort_order>1</sort_order>
