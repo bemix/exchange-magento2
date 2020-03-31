@@ -3,14 +3,14 @@
     <system>
         <section id="payment">
             <group id="allsecureexchange_general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>allsecureexchange</label>
+                <label>Allsecure Exchange</label>
 
                 <field id="username" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>config_http_user</label>
+                    <label>Username</label>
                     <config_path>allsecureexchange/general/username</config_path>
                 </field>
                 <field id="password" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>config_http_password</label>
+                    <label>Password</label>
                     <config_path>allsecureexchange/general/password</config_path>
                 </field>
                 <field id="host" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
@@ -19,10 +19,10 @@
                 </field>
 
                 <group id="allsecureexchange_cc" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>CreditCard</label>
+                    <label>Credit Card Settings</label>
 
                     <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                        <label>text_enabled</label>
+                        <label>Enabled</label>
                         <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                         <config_path>payment/allsecureexchange_creditcard/active</config_path>
                     </field>
@@ -31,7 +31,7 @@
                         <config_path>payment/allsecureexchange_creditcard/api_key</config_path>
                     </field>
                     <field id="shared_secret" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
-                        <label>config_merchant_secret</label>
+                        <label>Merchant Secret</label>
                         <config_path>payment/allsecureexchange_creditcard/shared_secret</config_path>
                     </field>
                     <field id="seamless" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
