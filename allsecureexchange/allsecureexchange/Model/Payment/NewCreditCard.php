@@ -229,6 +229,8 @@ class CreditCard implements MethodInterface
     {
         // TODO: Implement getConfigPaymentAction() method.
     }
+	
+	
 
 
 

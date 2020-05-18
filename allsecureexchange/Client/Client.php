@@ -41,7 +41,7 @@ class Client {
     /**
      * The default url points to the Gateway
      */
-    const DEFAULT_GATEWAY_URL = 'https://gateway.paymentgateway.cloud/';
+    const DEFAULT_GATEWAY_URL = 'https://asxgw.com/';
 
     const TRANSACTION_ROUTE = 'transaction';
 
@@ -64,7 +64,7 @@ class Client {
     /**
      * @var string
      */
-    protected static $gatewayUrl = 'https://gateway.paymentgateway.cloud/';
+    protected static $gatewayUrl = 'https://asxgw.com/';
 
     /**
      * the api key given by the gateway
