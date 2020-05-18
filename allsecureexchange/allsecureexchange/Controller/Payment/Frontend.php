@@ -64,6 +64,7 @@ class Frontend extends Action
         $this->allsecureexchangeHelper = $allsecureexchangeHelper;
         $this->resultJsonFactory = $resultJsonFactory;
     }
+	
 
     public function execute()
     {
@@ -71,6 +72,10 @@ class Frontend extends Action
         $response = $this->resultJsonFactory->create();
 
         $paymentMethod = 'allsecureexchange_creditcard';
+		
+		$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+		$store = $objectManager->get('Magento\Framework\Locale\Resolver'); 
+        
 
         //TODO: SELECT CORRECT PAYMENT SETTINGS
         \allsecureexchange\Client\Client::setApiUrl($this->allsecureexchangeHelper->getGeneralConfigData('host'));
@@ -78,7 +83,8 @@ class Frontend extends Action
             $this->allsecureexchangeHelper->getGeneralConfigData('username'),
             $this->allsecureexchangeHelper->getGeneralConfigData('password'),
             $this->allsecureexchangeHelper->getPaymentConfigData('api_key', $paymentMethod, null),
-            $this->allsecureexchangeHelper->getPaymentConfigData('shared_secret', $paymentMethod, null)
+            $this->allsecureexchangeHelper->getPaymentConfigData('shared_secret', $paymentMethod, null),
+			strtolower(substr($store->getLocale(), 0, 2 ))
         );
 
         $order = $this->session->getLastRealOrder();
