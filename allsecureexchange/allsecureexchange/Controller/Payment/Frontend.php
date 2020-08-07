@@ -3,8 +3,10 @@
 namespace allsecureexchange\allsecureexchange\Controller\Payment;
 
 use allsecureexchange\Client\Transaction\Debit;
+use allsecureexchange\Client\Transaction\Preauthorize;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
+use Magento\Framework\HTTP\PhpEnvironment\RemoteAddress;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\UrlInterface;
 use Magento\Payment\Helper\Data;
@@ -88,30 +90,49 @@ class Frontend extends Action
         );
 
         $order = $this->session->getLastRealOrder();
-
-        $debit = new Debit();
+	
+		switch ($this->allsecureexchangeHelper->getPaymentConfigData('transaction_type', 'allsecureexchange_creditcard', null)) {
+            case 'Preauthorize':
+				$transaction = new Preauthorize();
+				$transactionType = 'Preauthorize';
+                break;
+            default:
+			case 'Debit':
+				$transaction = new Debit();
+				$transactionType = 'Debit';
+				break;
+        }
+		
         if ($this->allsecureexchangeHelper->getPaymentConfigDataFlag('seamless', $paymentMethod)) {
             $token = (string) $request['token'];
 
             if (empty($token)) {
-                die('empty token');
+				die('empty token');
             }
 
-            $debit->setTransactionToken($token);
+            $transaction->setTransactionToken($token);
         }
-        $debit->addExtraData('3dsecure', 'OPTIONAL');
+        // $transaction->addExtraData('3dsecure', 'OPTIONAL');
 
-        $debit->setTransactionId($order->getIncrementId());
-        $debit->setAmount(\number_format($order->getGrandTotal(), 2, '.', ''));
-        $debit->setCurrency($order->getOrderCurrency()->getCode());
+        $transaction->setTransactionId($order->getIncrementId());
+        $transaction->setAmount(\number_format($order->getGrandTotal(), 2, '.', ''));
+        $transaction->setCurrency($order->getOrderCurrency()->getCode());
 
         $customer = new \allsecureexchange\Client\Data\Customer();
         $customer->setFirstName($order->getCustomerFirstname());
         $customer->setLastName($order->getCustomerLastname());
         $customer->setEmail($order->getCustomerEmail());
-
-        $customer->setIpAddress($order->getRemoteIp());
-
+        // $customer->setIpAddress($order->getRemoteIp());
+		if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+			//ip from share internet
+			$customer->setIpAddress($_SERVER['HTTP_CLIENT_IP']);
+		}elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+			//ip pass from proxy
+			$customer->setIpAddress($_SERVER['HTTP_X_FORWARDED_FOR']);
+		}else{
+			$customer->setIpAddress($_SERVER['REMOTE_ADDR']);
+		}
+		
         $billingAddress = $order->getBillingAddress();
         if ($billingAddress !== null) {
             $customer->setBillingAddress1($billingAddress->getStreet()[0]);
@@ -131,20 +152,27 @@ class Frontend extends Action
             $customer->setShippingCountry($shippingAddress->getCountryId());
         }
 
-        $debit->setCustomer($customer);
-
+        $transaction->setCustomer($customer);
+		
         $baseUrl = $this->urlBuilder->getRouteUrl('allsecureexchange');
+        $transaction->setSuccessUrl($this->urlBuilder->getUrl('checkout/onepage/success'));
+        $transaction->setCancelUrl($baseUrl . 'payment/redirect?status=cancel');
+        $transaction->setErrorUrl($baseUrl . 'payment/redirect?status=error');
+        $transaction->setCallbackUrl($baseUrl . 'payment/callback');
+		
+		$this->prepare3dSecure2Data($transaction, $order);
 
-        $debit->setSuccessUrl($this->urlBuilder->getUrl('checkout/onepage/success'));
-        $debit->setCancelUrl($baseUrl . 'payment/redirect?status=cancel');
-        $debit->setErrorUrl($baseUrl . 'payment/redirect?status=error');
-
-        $debit->setCallbackUrl($baseUrl . 'payment/callback');
-
-        $this->prepare3dSecure2Data($debit, $order);
-
-        $paymentResult = $client->debit($debit);
-
+		switch ($this->allsecureexchangeHelper->getPaymentConfigData('transaction_type', 'allsecureexchange_creditcard', null)) {
+            case 'Preauthorize':
+				$paymentResult = $client->preauthorize($transaction);
+                break;
+            default:
+			case 'Debit':
+				$paymentResult = $client->debit($transaction);
+				break;
+        }
+			
+		
         if (!$paymentResult->isSuccess()) {
             $response->setData([
                 'type' => 'error',
@@ -184,26 +212,30 @@ class Frontend extends Action
 
         return $response;
     }
-
-    private function prepare3dSecure2Data(Debit $debit, Order $order)
+	
+	/**
+     * @throws Exception
+     * @return array
+     */
+	private function prepare3dSecure2Data($transaction, $order)
     {
-        $debit->addExtraData('3ds:channel', '02'); // Browser
-        $debit->addExtraData('3ds:authenticationIndicator ', '01'); // Payment transaction
+        $transaction->addExtraData('3ds:channel', '02'); // Browser
+        $transaction->addExtraData('3ds:authenticationIndicator ', '01'); // Payment transaction
 
         if ($order->getCustomerIsGuest()) {
-            $debit->addExtraData('3ds:cardholderAuthenticationMethod', '01');
-            $debit->addExtraData('3ds:cardholderAccountAgeIndicator', '01');
+            $transaction->addExtraData('3ds:cardholderAuthenticationMethod', '01');
+            $transaction->addExtraData('3ds:cardholderAccountAgeIndicator', '01');
         } else {
-            $debit->addExtraData('3ds:cardholderAuthenticationMethod', '02');
-            //$debit->addExtraData('3ds:cardholderAccountDate', \date('Y-m-d', $order->getCustomer()->getCreatedAtTimestamp()));
+            $transaction->addExtraData('3ds:cardholderAuthenticationMethod', '02');
+            //$transaction->addExtraData('3ds:cardholderAccountDate', \date('Y-m-d', $order->getCustomer()->getCreatedAtTimestamp()));
         }
 
-        //$debit->addExtraData('3ds:shipIndicator', \date('Y-m-d', $order->getCustomer()->getCreatedAtTimestamp()));
+        //$transaction->addExtraData('3ds:shipIndicator', \date('Y-m-d', $order->getCustomer()->getCreatedAtTimestamp()));
 
         if ($order->getShippigAddressId() == $order->getBillingAddressId()) {
-            $debit->addExtraData('3ds:billingShippingAddressMatch ', 'Y');
+            $transaction->addExtraData('3ds:billingShippingAddressMatch ', 'Y');
         } else {
-            $debit->addExtraData('3ds:billingShippingAddressMatch ', 'N');
+            $transaction->addExtraData('3ds:billingShippingAddressMatch ', 'N');
         }
 
     }
