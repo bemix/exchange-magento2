@@ -43,7 +43,12 @@
                         <label>Integration Key</label>
                         <config_path>payment/allsecureexchange_creditcard/integration_key</config_path>
                     </field>
-                    <field id="sort_order" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+					<field id="transaction_type" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Transaction Type</label>
+						<source_model>allsecureexchange\allsecureexchange\Model\Source\TransactionType</source_model>
+                        <config_path>payment/allsecureexchange_creditcard/transaction_type</config_path>
+                    </field>
+                    <field id="sort_order" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
                         <label>Sort Order</label>
                         <config_path>payment/allsecureexchange_creditcard/sort_order</config_path>
                     </field>

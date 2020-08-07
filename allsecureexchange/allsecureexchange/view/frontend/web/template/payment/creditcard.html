@@ -32,26 +32,26 @@
                 </div>
 
                 <div class="field required">
-                    <label class="label">Number</label>
+                    <label class="label"><?php echo __('Number') ?></label>
                     <div class="control">
                         <div class="input-seamless" data-bind="attr: {'id': 'allsecureexchange_cc_number_' + getCode()}"></div>
                     </div>
                 </div>
 
                 <div class="field required">
-                    <label class="label">Expire Date</label>
+                    <label class="label"><?php echo __('Expire Date') ?></label>
                     <div class="clearfix">
-                        <div class="control input-expire-month">
-                            Month <input class="input-text required" type="text" name="allsecureexchange_cc_month" data-validate="{required:true}" data-bind="attr: {'id': 'allsecureexchange_cc_month_' + getCode()}, value: ccMonth">
+                        <div class="control input-expire-month"><?php echo __('Month') ?>
+                             <input class="input-text required" type="text" name="allsecureexchange_cc_month" data-validate="{required:true}" data-bind="attr: {'id': 'allsecureexchange_cc_month_' + getCode()}, value: ccMonth">
                         </div>
-                        <div class="control input-expire-year">
-                            Year <input class="input-text required" type="text" name="allsecureexchange_cc_year" data-validate="{required:true}" data-bind="attr: {'id': 'allsecureexchange_cc_year_' + getCode()}, value: ccYear">
+                        <div class="control input-expire-year"><?php echo __('Year') ?>
+                             <input class="input-text required" type="text" name="allsecureexchange_cc_year" data-validate="{required:true}" data-bind="attr: {'id': 'allsecureexchange_cc_year_' + getCode()}, value: ccYear">
                         </div>
                     </div>
                 </div>
 
                 <div class="field required">
-                    <label class="label">CVV</label>
+                    <label class="label"><?php echo __('CVV') ?></label>
                     <div class="control">
                         <div class="input-seamless" data-bind="attr: {'id': 'allsecureexchange_cc_cvv_' + getCode()}"></div>
                     </div>
