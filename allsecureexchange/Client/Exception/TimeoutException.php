@@ -1,11 +1,11 @@
 <?php
 
-namespace allsecureexchange\Client\Exception;
+namespace Allsecureexchange\Client\Exception;
 
 /**
  * Class TimeoutException
  *
- * @package allsecureexchange\Client\Exception
+ * @package Allsecureexchange\Client\Exception
  */
 class TimeoutException extends ClientException {
 

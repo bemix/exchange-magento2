@@ -1,11 +1,11 @@
 <?php
 
-namespace allsecureexchange\Client\Json;
+namespace Allsecureexchange\Client\Json;
 
 /**
  * Class ErrorResponse
  *
- * @package allsecureexchange\Client\Json
+ * @package Allsecureexchange\Client\Json
  *
  * @property string $errorMessage
  * @property int $errorCode

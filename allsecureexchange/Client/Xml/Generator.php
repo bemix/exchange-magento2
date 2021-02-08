@@ -1,34 +1,34 @@
 <?php
 
-namespace allsecureexchange\Client\Xml;
+namespace Allsecureexchange\Client\Xml;
 
-use allsecureexchange\Client\Data\CreditCardCustomer;
-use allsecureexchange\Client\Data\Customer;
-use allsecureexchange\Client\Data\IbanCustomer;
-use allsecureexchange\Client\Data\Request;
-use allsecureexchange\Client\Exception\InvalidValueException;
-use allsecureexchange\Client\Schedule\ScheduleData;
-use allsecureexchange\Client\Exception\TypeException;
-use allsecureexchange\Client\StatusApi\StatusRequestData;
-use allsecureexchange\Client\Transaction\Base\AbstractTransaction;
-use allsecureexchange\Client\Transaction\Base\AbstractTransactionWithReference;
-use allsecureexchange\Client\Transaction\Base\AmountableInterface;
-use allsecureexchange\Client\Transaction\Base\ItemsInterface;
-use allsecureexchange\Client\Transaction\Base\OffsiteInterface;
-use allsecureexchange\Client\Transaction\Capture;
-use allsecureexchange\Client\Transaction\Debit;
-use allsecureexchange\Client\Transaction\Deregister;
-use allsecureexchange\Client\Transaction\Payout;
-use allsecureexchange\Client\Transaction\Preauthorize;
-use allsecureexchange\Client\Transaction\Refund;
-use allsecureexchange\Client\Transaction\Register;
-use allsecureexchange\Client\Transaction\VoidTransaction;
-use allsecureexchange\Client\Transaction\Base\AddToCustomerProfileInterface;
+use Allsecureexchange\Client\Data\CreditCardCustomer;
+use Allsecureexchange\Client\Data\Customer;
+use Allsecureexchange\Client\Data\IbanCustomer;
+use Allsecureexchange\Client\Data\Request;
+use Allsecureexchange\Client\Exception\InvalidValueException;
+use Allsecureexchange\Client\Schedule\ScheduleData;
+use Allsecureexchange\Client\Exception\TypeException;
+use Allsecureexchange\Client\StatusApi\StatusRequestData;
+use Allsecureexchange\Client\Transaction\Base\AbstractTransaction;
+use Allsecureexchange\Client\Transaction\Base\AbstractTransactionWithReference;
+use Allsecureexchange\Client\Transaction\Base\AmountableInterface;
+use Allsecureexchange\Client\Transaction\Base\ItemsInterface;
+use Allsecureexchange\Client\Transaction\Base\OffsiteInterface;
+use Allsecureexchange\Client\Transaction\Capture;
+use Allsecureexchange\Client\Transaction\Debit;
+use Allsecureexchange\Client\Transaction\Deregister;
+use Allsecureexchange\Client\Transaction\Payout;
+use Allsecureexchange\Client\Transaction\Preauthorize;
+use Allsecureexchange\Client\Transaction\Refund;
+use Allsecureexchange\Client\Transaction\Register;
+use Allsecureexchange\Client\Transaction\VoidTransaction;
+use Allsecureexchange\Client\Transaction\Base\AddToCustomerProfileInterface;
 
 /**
  * Class Generator
  *
- * @package allsecureexchange\Client\Xml
+ * @package Allsecureexchange\Client\Xml
  */
 class Generator {
 
@@ -635,7 +635,7 @@ class Generator {
     }
 
     /**
-     * @param \allsecureexchange\Client\Transaction\VoidTransaction $transaction
+     * @param \Allsecureexchange\Client\Transaction\VoidTransaction $transaction
      * @param $method
      *
      * @return \DOMElement

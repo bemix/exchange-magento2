@@ -1,19 +1,19 @@
 <?php
 
-namespace allsecureexchange\Client\Transaction;
+namespace Allsecureexchange\Client\Transaction;
 
-use allsecureexchange\Client\Transaction\Base\AbstractTransactionWithReference;
-use allsecureexchange\Client\Transaction\Base\AmountableInterface;
-use allsecureexchange\Client\Transaction\Base\AmountableTrait;
-use allsecureexchange\Client\Transaction\Base\ItemsInterface;
-use allsecureexchange\Client\Transaction\Base\ItemsTrait;
+use Allsecureexchange\Client\Transaction\Base\AbstractTransactionWithReference;
+use Allsecureexchange\Client\Transaction\Base\AmountableInterface;
+use Allsecureexchange\Client\Transaction\Base\AmountableTrait;
+use Allsecureexchange\Client\Transaction\Base\ItemsInterface;
+use Allsecureexchange\Client\Transaction\Base\ItemsTrait;
 
 /**
  * Refund: Refund money from a previous Debit (or Capture) transaction to the customer.
  *
  * @note Preauthorized transactions can be reverted with a Void transaction, not a Refund!
  *
- * @package allsecureexchange\Client\Transaction
+ * @package Allsecureexchange\Client\Transaction
  */
 class Refund extends AbstractTransactionWithReference implements AmountableInterface, ItemsInterface {
     use AmountableTrait;

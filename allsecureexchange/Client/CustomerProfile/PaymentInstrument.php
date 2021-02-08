@@ -1,14 +1,14 @@
 <?php
 
-namespace allsecureexchange\Client\CustomerProfile;
+namespace Allsecureexchange\Client\CustomerProfile;
 
-use allsecureexchange\Client\CustomerProfile\PaymentData\PaymentData;
-use allsecureexchange\Client\Json\DataObject;
+use Allsecureexchange\Client\CustomerProfile\PaymentData\PaymentData;
+use Allsecureexchange\Client\Json\DataObject;
 
 /**
  * Class PaymentInstrument
  *
- * @package allsecureexchange\Client\CustomerProfile
+ * @package Allsecureexchange\Client\CustomerProfile
  *
  * @property string $method
  * @property string $paymentToken

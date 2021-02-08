@@ -1,11 +1,11 @@
 <?php
 
-namespace allsecureexchange\Client\Exception;
+namespace Allsecureexchange\Client\Exception;
 
 /**
  * Class InvalidValueException
  *
- * @package allsecureexchange\Client\Exception
+ * @package Allsecureexchange\Client\Exception
  */
 class InvalidValueException extends ClientException {
 

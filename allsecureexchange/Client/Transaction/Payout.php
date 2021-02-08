@@ -1,17 +1,17 @@
 <?php
 
-namespace allsecureexchange\Client\Transaction;
+namespace Allsecureexchange\Client\Transaction;
 
-use allsecureexchange\Client\Transaction\Base\AbstractTransactionWithReference;
-use allsecureexchange\Client\Transaction\Base\AmountableInterface;
-use allsecureexchange\Client\Transaction\Base\AmountableTrait;
-use allsecureexchange\Client\Transaction\Base\ItemsInterface;
-use allsecureexchange\Client\Transaction\Base\ItemsTrait;
+use Allsecureexchange\Client\Transaction\Base\AbstractTransactionWithReference;
+use Allsecureexchange\Client\Transaction\Base\AmountableInterface;
+use Allsecureexchange\Client\Transaction\Base\AmountableTrait;
+use Allsecureexchange\Client\Transaction\Base\ItemsInterface;
+use Allsecureexchange\Client\Transaction\Base\ItemsTrait;
 
 /**
  * Payout: Payout a certain amount of money to the customer. (Debits the merchant's account, Credits the customer's account)
  *
- * @package allsecureexchange\Client\Transaction
+ * @package Allsecureexchange\Client\Transaction
  */
 class Payout extends AbstractTransactionWithReference implements AmountableInterface, ItemsInterface {
     use ItemsTrait;

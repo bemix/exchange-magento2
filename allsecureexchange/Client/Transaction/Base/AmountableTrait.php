@@ -1,12 +1,12 @@
 <?php
 
 
-namespace allsecureexchange\Client\Transaction\Base;
+namespace Allsecureexchange\Client\Transaction\Base;
 
 /**
  * Class AmountableTrait
  *
- * @package allsecureexchange\Client\Transaction\Base
+ * @package Allsecureexchange\Client\Transaction\Base
  */
 trait AmountableTrait {
 

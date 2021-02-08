@@ -1,13 +1,13 @@
 <?php
 
-namespace allsecureexchange\Client\Http;
+namespace Allsecureexchange\Client\Http;
 
-use allsecureexchange\Client\Http\Exception\ClientException;
+use Allsecureexchange\Client\Http\Exception\ClientException;
 
 /**
  * Class CurlClient
  *
- * @package allsecureexchange\Client\Http
+ * @package Allsecureexchange\Client\Http
  */
 class CurlClient implements ClientInterface {
 

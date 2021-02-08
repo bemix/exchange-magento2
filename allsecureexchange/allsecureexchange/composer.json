@@ -27,7 +27,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "allsecureexchange\\allsecureexchange\\": ""
+            "Allsecureexchange\\Allsecureexchange\\": ""
         }
     }
 }

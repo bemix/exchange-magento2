@@ -5,14 +5,14 @@
             <general>
                 <username></username>
                 <password></password>
-                <host></host>
+                <host>https://asxgw.com/</host>
                 <sandbox>0</sandbox>
             </general>
         </allsecureexchange>
         <payment>
             <allsecureexchange_creditcard>
                 <active>1</active>
-                <model>allsecureexchange\allsecureexchange\Model\Payment\CreditCard</model>
+                <model>Allsecureexchange\Allsecureexchange\Model\Payment\CreditCard</model>
                 <title>Credit Cards</title>
                 <order_status>pending</order_status>
                 <allowspecific>0</allowspecific>
@@ -20,7 +20,7 @@
                 <api_key></api_key>
                 <shared_secret></shared_secret>
                 <integration_key></integration_key>
-				<transaction_type>Debit</transaction_type>
+		<transaction_type>Debit</transaction_type>
                 <seamless>0</seamless>
             </allsecureexchange_creditcard>
         </payment>

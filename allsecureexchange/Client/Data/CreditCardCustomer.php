@@ -1,11 +1,11 @@
 <?php
 
-namespace allsecureexchange\Client\Data;
+namespace Allsecureexchange\Client\Data;
 
 /**
  * Specialized class to represent a customer with credit card data.
  *
- * @package allsecureexchange\Client\Data
+ * @package Allsecureexchange\Client\Data
  */
 class CreditCardCustomer extends Customer {
 

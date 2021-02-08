@@ -1,9 +1,9 @@
 <?php
 
-namespace allsecureexchange\allsecureexchange\Controller\Payment;
+namespace Allsecureexchange\Allsecureexchange\Controller\Payment;
 
-use allsecureexchange\Client\Transaction\Debit;
-use allsecureexchange\Client\Transaction\Preauthorize;
+use Allsecureexchange\Client\Transaction\Debit;
+use Allsecureexchange\Client\Transaction\Preauthorize;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\HTTP\PhpEnvironment\RemoteAddress;
@@ -30,7 +30,7 @@ class Frontend extends Action
     private $paymentHelper;
 
     /**
-     * @var \allsecureexchange\allsecureexchange\Helper\Data
+     * @var \Allsecureexchange\Allsecureexchange\Helper\Data
      */
     private $allsecureexchangeHelper;
 
@@ -54,7 +54,7 @@ class Frontend extends Action
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Checkout\Api\PaymentInformationManagementInterface $paymentInformation,
         Data $paymentHelper,
-        \allsecureexchange\allsecureexchange\Helper\Data $allsecureexchangeHelper,
+        \Allsecureexchange\Allsecureexchange\Helper\Data $allsecureexchangeHelper,
         UrlInterface $urlBuilder,
         JsonFactory $resultJsonFactory
     ) {
@@ -66,7 +66,6 @@ class Frontend extends Action
         $this->allsecureexchangeHelper = $allsecureexchangeHelper;
         $this->resultJsonFactory = $resultJsonFactory;
     }
-	
 
     public function execute()
     {
@@ -74,65 +73,59 @@ class Frontend extends Action
         $response = $this->resultJsonFactory->create();
 
         $paymentMethod = 'allsecureexchange_creditcard';
-		
-		$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
-		$store = $objectManager->get('Magento\Framework\Locale\Resolver'); 
-        
+	$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); 
+	$store = $objectManager->get('Magento\Framework\Locale\Resolver');
 
         //TODO: SELECT CORRECT PAYMENT SETTINGS
-        \allsecureexchange\Client\Client::setApiUrl($this->allsecureexchangeHelper->getGeneralConfigData('host'));
-        $client = new \allsecureexchange\Client\Client(
+        \Allsecureexchange\Client\Client::setApiUrl($this->allsecureexchangeHelper->getGeneralConfigData('host'));
+        $client = new \Allsecureexchange\Client\Client(
             $this->allsecureexchangeHelper->getGeneralConfigData('username'),
             $this->allsecureexchangeHelper->getGeneralConfigData('password'),
             $this->allsecureexchangeHelper->getPaymentConfigData('api_key', $paymentMethod, null),
-            $this->allsecureexchangeHelper->getPaymentConfigData('shared_secret', $paymentMethod, null),
-			strtolower(substr($store->getLocale(), 0, 2 ))
+            $this->allsecureexchangeHelper->getPaymentConfigData('shared_secret', $paymentMethod, null), strtolower(substr($store->getLocale(), 0, 2 ))
         );
 
         $order = $this->session->getLastRealOrder();
-	
-		switch ($this->allsecureexchangeHelper->getPaymentConfigData('transaction_type', 'allsecureexchange_creditcard', null)) {
+
+	switch ($this->allsecureexchangeHelper->getPaymentConfigData('transaction_type', 'allsecureexchange_creditcard', null)) {
             case 'Preauthorize':
-				$transaction = new Preauthorize();
-				$transactionType = 'Preauthorize';
-                break;
-            default:
-			case 'Debit':
-				$transaction = new Debit();
-				$transactionType = 'Debit';
-				break;
+		$transaction = new Preauthorize();
+		$transactionType = 'Preauthorize';
+	        break;
+		default:
+	    case 'Debit':
+	    	$transaction = new Debit();
+		$transactionType = 'Debit';
+		break;
         }
-		
         if ($this->allsecureexchangeHelper->getPaymentConfigDataFlag('seamless', $paymentMethod)) {
             $token = (string) $request['token'];
 
             if (empty($token)) {
-				die('empty token');
+                die('empty token');
             }
 
             $transaction->setTransactionToken($token);
         }
-        // $transaction->addExtraData('3dsecure', 'OPTIONAL');
+        $transaction->addExtraData('3dsecure', 'OPTIONAL');
 
         $transaction->setTransactionId($order->getIncrementId());
         $transaction->setAmount(\number_format($order->getGrandTotal(), 2, '.', ''));
         $transaction->setCurrency($order->getOrderCurrency()->getCode());
 
-        $customer = new \allsecureexchange\Client\Data\Customer();
+        $customer = new \Allsecureexchange\Client\Data\Customer();
         $customer->setFirstName($order->getCustomerFirstname());
         $customer->setLastName($order->getCustomerLastname());
         $customer->setEmail($order->getCustomerEmail());
-        // $customer->setIpAddress($order->getRemoteIp());
-		if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-			//ip from share internet
-			$customer->setIpAddress($_SERVER['HTTP_CLIENT_IP']);
-		}elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-			//ip pass from proxy
-			$customer->setIpAddress($_SERVER['HTTP_X_FORWARDED_FOR']);
-		}else{
-			$customer->setIpAddress($_SERVER['REMOTE_ADDR']);
-		}
-		
+
+	if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+		$customer->setIpAddress($_SERVER['HTTP_CLIENT_IP']);
+	} elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+		$customer->setIpAddress($_SERVER['HTTP_X_FORWARDED_FOR']);
+	} else{
+		$customer->setIpAddress($_SERVER['REMOTE_ADDR']);
+	}
+
         $billingAddress = $order->getBillingAddress();
         if ($billingAddress !== null) {
             $customer->setBillingAddress1($billingAddress->getStreet()[0]);
@@ -153,27 +146,27 @@ class Frontend extends Action
         }
 
         $transaction->setCustomer($customer);
-		
+
         $baseUrl = $this->urlBuilder->getRouteUrl('allsecureexchange');
+
         $transaction->setSuccessUrl($this->urlBuilder->getUrl('checkout/onepage/success'));
         $transaction->setCancelUrl($baseUrl . 'payment/redirect?status=cancel');
         $transaction->setErrorUrl($baseUrl . 'payment/redirect?status=error');
+
         $transaction->setCallbackUrl($baseUrl . 'payment/callback');
-		
-		$this->prepare3dSecure2Data($transaction, $order);
 
-		switch ($this->allsecureexchangeHelper->getPaymentConfigData('transaction_type', 'allsecureexchange_creditcard', null)) {
-            case 'Preauthorize':
-				$paymentResult = $client->preauthorize($transaction);
-                break;
-            default:
-			case 'Debit':
-				$paymentResult = $client->debit($transaction);
-				break;
+        $this->prepare3dSecure2Data($transaction, $order);
+
+	switch ($this->allsecureexchangeHelper->getPaymentConfigData('transaction_type', 'allsecureexchange_creditcard', null)) {
+		case 'Preauthorize':
+			$paymentResult = $client->preauthorize($transaction);
+                	break;
+			default:
+		case 'Debit':
+			$paymentResult = $client->debit($transaction);
+			break;
         }
-			
-		
-        if (!$paymentResult->isSuccess()) {
+       if (!$paymentResult->isSuccess()) {
             $response->setData([
                 'type' => 'error',
                 'errors' => $paymentResult->getFirstError()->getMessage()
@@ -181,7 +174,7 @@ class Frontend extends Action
             return $response;
         }
 
-        if ($paymentResult->getReturnType() == \allsecureexchange\Client\Transaction\Result::RETURN_TYPE_ERROR) {
+        if ($paymentResult->getReturnType() == \Allsecureexchange\Client\Transaction\Result::RETURN_TYPE_ERROR) {
 
             $response->setData([
                 'type' => 'error',
@@ -189,7 +182,7 @@ class Frontend extends Action
             ]);
             return $response;
 
-        } elseif ($paymentResult->getReturnType() == \allsecureexchange\Client\Transaction\Result::RETURN_TYPE_REDIRECT) {
+        } elseif ($paymentResult->getReturnType() == \Allsecureexchange\Client\Transaction\Result::RETURN_TYPE_REDIRECT) {
 
             $response->setData([
                 'type' => 'redirect',
@@ -198,12 +191,12 @@ class Frontend extends Action
 
             return $response;
 
-        } elseif ($paymentResult->getReturnType() == \allsecureexchange\Client\Transaction\Result::RETURN_TYPE_PENDING) {
+        } elseif ($paymentResult->getReturnType() == \Allsecureexchange\Client\Transaction\Result::RETURN_TYPE_PENDING) {
             //payment is pending, wait for callback to complete
 
             //setCartToPending();
 
-        } elseif ($paymentResult->getReturnType() == \allsecureexchange\Client\Transaction\Result::RETURN_TYPE_FINISHED) {
+        } elseif ($paymentResult->getReturnType() == \Allsecureexchange\Client\Transaction\Result::RETURN_TYPE_FINISHED) {
 
             $response->setData([
                 'type' => 'finished',
@@ -212,12 +205,13 @@ class Frontend extends Action
 
         return $response;
     }
-	
-	/**
+    
+    /**
      * @throws Exception
      * @return array
      */
-	private function prepare3dSecure2Data($transaction, $order)
+    
+    private function prepare3dSecure2Data($transaction, $order)
     {
         $transaction->addExtraData('3ds:channel', '02'); // Browser
         $transaction->addExtraData('3ds:authenticationIndicator ', '01'); // Payment transaction
@@ -227,10 +221,10 @@ class Frontend extends Action
             $transaction->addExtraData('3ds:cardholderAccountAgeIndicator', '01');
         } else {
             $transaction->addExtraData('3ds:cardholderAuthenticationMethod', '02');
-            //$transaction->addExtraData('3ds:cardholderAccountDate', \date('Y-m-d', $order->getCustomer()->getCreatedAtTimestamp()));
+            // $transaction->addExtraData('3ds:cardholderAccountDate', \date('Y-m-d', $order->getCustomer()->getCreatedAtTimestamp()));
         }
 
-        //$transaction->addExtraData('3ds:shipIndicator', \date('Y-m-d', $order->getCustomer()->getCreatedAtTimestamp()));
+        // $transaction->addExtraData('3ds:shipIndicator', \date('Y-m-d', $order->getCustomer()->getCreatedAtTimestamp()));
 
         if ($order->getShippigAddressId() == $order->getBillingAddressId()) {
             $transaction->addExtraData('3ds:billingShippingAddressMatch ', 'Y');

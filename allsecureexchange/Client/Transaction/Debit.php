@@ -1,23 +1,23 @@
 <?php
 
-namespace allsecureexchange\Client\Transaction;
+namespace Allsecureexchange\Client\Transaction;
 
-use allsecureexchange\Client\Transaction\Base\AbstractTransactionWithReference;
-use allsecureexchange\Client\Transaction\Base\AddToCustomerProfileInterface;
-use allsecureexchange\Client\Transaction\Base\AddToCustomerProfileTrait;
-use allsecureexchange\Client\Transaction\Base\AmountableInterface;
-use allsecureexchange\Client\Transaction\Base\AmountableTrait;
-use allsecureexchange\Client\Transaction\Base\ItemsInterface;
-use allsecureexchange\Client\Transaction\Base\ItemsTrait;
-use allsecureexchange\Client\Transaction\Base\OffsiteInterface;
-use allsecureexchange\Client\Transaction\Base\OffsiteTrait;
-use allsecureexchange\Client\Transaction\Base\ScheduleInterface;
-use allsecureexchange\Client\Transaction\Base\ScheduleTrait;
+use Allsecureexchange\Client\Transaction\Base\AbstractTransactionWithReference;
+use Allsecureexchange\Client\Transaction\Base\AddToCustomerProfileInterface;
+use Allsecureexchange\Client\Transaction\Base\AddToCustomerProfileTrait;
+use Allsecureexchange\Client\Transaction\Base\AmountableInterface;
+use Allsecureexchange\Client\Transaction\Base\AmountableTrait;
+use Allsecureexchange\Client\Transaction\Base\ItemsInterface;
+use Allsecureexchange\Client\Transaction\Base\ItemsTrait;
+use Allsecureexchange\Client\Transaction\Base\OffsiteInterface;
+use Allsecureexchange\Client\Transaction\Base\OffsiteTrait;
+use Allsecureexchange\Client\Transaction\Base\ScheduleInterface;
+use Allsecureexchange\Client\Transaction\Base\ScheduleTrait;
 
 /**
  * Debit: Charge the customer for a certain amount of money. This could be once, but also recurring.
  *
- * @package allsecureexchange\Client\Transaction
+ * @package Allsecureexchange\Client\Transaction
  */
 class Debit extends AbstractTransactionWithReference implements AmountableInterface, OffsiteInterface, ItemsInterface, ScheduleInterface, AddToCustomerProfileInterface {
     use OffsiteTrait;

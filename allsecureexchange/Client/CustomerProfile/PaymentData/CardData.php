@@ -1,11 +1,11 @@
 <?php
 
-namespace allsecureexchange\Client\CustomerProfile\PaymentData;
+namespace Allsecureexchange\Client\CustomerProfile\PaymentData;
 
 /**
  * Class CardData
  *
- * @package allsecureexchange\Client\CustomerProfile\PaymentData
+ * @package Allsecureexchange\Client\CustomerProfile\PaymentData
  *
  * @property string $brand
  * @property string $cardHolder

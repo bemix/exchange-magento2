@@ -1,12 +1,12 @@
 <?php
 
 
-namespace allsecureexchange\Client\Data\Result;
+namespace Allsecureexchange\Client\Data\Result;
 
 /**
  * Class ResultData
  *
- * @package allsecureexchange\Client\Data\Result
+ * @package Allsecureexchange\Client\Data\Result
  */
 abstract class ResultData {
 

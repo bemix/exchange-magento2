@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace allsecureexchange\allsecureexchange\Controller\Payment;
+namespace Allsecureexchange\Allsecureexchange\Controller\Payment;
 
 use Magento\Backend\App\Action\Context;
 use Magento\Checkout\Model\Session;

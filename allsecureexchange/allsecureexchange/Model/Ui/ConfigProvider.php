@@ -1,6 +1,6 @@
 <?php
 
-namespace allsecureexchange\allsecureexchange\Model\Ui;
+namespace Allsecureexchange\Allsecureexchange\Model\Ui;
 
 use Magento\Checkout\Model\ConfigProviderInterface;
 
@@ -9,11 +9,11 @@ final class ConfigProvider implements ConfigProviderInterface
     const CREDITCARD_CODE = 'allsecureexchange_creditcard';
 
     /**
-     * @var \allsecureexchange\allsecureexchange\Helper\Data
+     * @var \Allsecureexchange\Allsecureexchange\Helper\Data
      */
     private $allsecureexchangeHelper;
 
-    public function __construct(\allsecureexchange\allsecureexchange\Helper\Data $allsecureexchangeHelper)
+    public function __construct(\Allsecureexchange\Allsecureexchange\Helper\Data $allsecureexchangeHelper)
     {
         $this->allsecureexchangeHelper = $allsecureexchangeHelper;
     }

@@ -17,7 +17,7 @@ define(
             ccYear: '',
 
             defaults: {
-                template: 'allsecureexchange_allsecureexchange/payment/creditcard',
+                template: 'Allsecureexchange_Allsecureexchange/payment/creditcard',
             },
 
             initialize: function() {

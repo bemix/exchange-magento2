@@ -1,11 +1,11 @@
 <?php
 
-namespace allsecureexchange\Client\Schedule;
+namespace Allsecureexchange\Client\Schedule;
 
 /**
  * Class Result
  *
- * @package allsecureexchange\Client\Data
+ * @package Allsecureexchange\Client\Data
  */
 class ScheduleResult {
 

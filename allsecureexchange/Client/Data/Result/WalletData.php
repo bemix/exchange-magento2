@@ -1,11 +1,11 @@
 <?php
 
-namespace allsecureexchange\Client\Data\Result;
+namespace Allsecureexchange\Client\Data\Result;
 
 /**
  * Class WalletData
  *
- * @package allsecureexchange\Client\Data
+ * @package Allsecureexchange\Client\Data
  *
  */
 class WalletData extends ResultData {

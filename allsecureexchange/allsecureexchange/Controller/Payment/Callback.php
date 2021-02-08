@@ -1,6 +1,6 @@
 <?php
 
-namespace allsecureexchange\allsecureexchange\Controller\Payment;
+namespace Allsecureexchange\Allsecureexchange\Controller\Payment;
 
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
@@ -30,7 +30,7 @@ class Callback extends Action implements CsrfAwareActionInterface
     private $invoiceService;
 
     /**
-     * @var \allsecureexchange\allsecureexchange\Helper\Data
+     * @var \Allsecureexchange\Allsecureexchange\Helper\Data
      */
     private $allsecureexchangeHelper;
 
@@ -40,7 +40,7 @@ class Callback extends Action implements CsrfAwareActionInterface
         ObjectManagerInterface $objectManager,
         \Magento\Checkout\Model\Session $checkoutSession,
         InvoiceService $invoiceService,
-        \allsecureexchange\allsecureexchange\Helper\Data $allsecureexchangeHelper
+        \Allsecureexchange\Allsecureexchange\Helper\Data $allsecureexchangeHelper
     ) {
         parent::__construct($context);
         $this->objectManager = $objectManager;
@@ -77,8 +77,8 @@ class Callback extends Action implements CsrfAwareActionInterface
         }
 
         //TODO: SELECT CORRECT PAYMENT SETTINGS
-        \allsecureexchange\Client\Client::setApiUrl($this->allsecureexchangeHelper->getGeneralConfigData('host'));
-        $client = new \allsecureexchange\Client\Client(
+        \Allsecureexchange\Client\Client::setApiUrl($this->allsecureexchangeHelper->getGeneralConfigData('host'));
+        $client = new \Allsecureexchange\Client\Client(
             $this->allsecureexchangeHelper->getGeneralConfigData('username'),
             $this->allsecureexchangeHelper->getGeneralConfigData('password'),
             $this->allsecureexchangeHelper->getPaymentConfigData('api_key', 'allsecureexchange_creditcard', null),

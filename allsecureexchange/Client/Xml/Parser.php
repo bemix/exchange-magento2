@@ -1,28 +1,28 @@
 <?php
 
-namespace allsecureexchange\Client\Xml;
+namespace Allsecureexchange\Client\Xml;
 
-use allsecureexchange\Client\Callback\ChargebackData;
-use allsecureexchange\Client\Callback\ChargebackReversalData;
-use allsecureexchange\Client\Data\Customer;
-use allsecureexchange\Client\Data\Result\CreditcardData;
-use allsecureexchange\Client\Data\Result\IbanData;
-use allsecureexchange\Client\Data\Result\PhoneData;
-use allsecureexchange\Client\Data\Result\ResultData;
-use allsecureexchange\Client\Data\Result\WalletData;
-use allsecureexchange\Client\Exception\ClientException;
-use allsecureexchange\Client\Schedule\ScheduleResult;
-use allsecureexchange\Client\Exception\InvalidValueException;
-use allsecureexchange\Client\Schedule\ScheduleError;
-use allsecureexchange\Client\StatusApi\StatusResult;
-use allsecureexchange\Client\Transaction\Error;
-use allsecureexchange\Client\Transaction\Result;
-use allsecureexchange\Client\Callback\Result as CallbackResult;
+use Allsecureexchange\Client\Callback\ChargebackData;
+use Allsecureexchange\Client\Callback\ChargebackReversalData;
+use Allsecureexchange\Client\Data\Customer;
+use Allsecureexchange\Client\Data\Result\CreditcardData;
+use Allsecureexchange\Client\Data\Result\IbanData;
+use Allsecureexchange\Client\Data\Result\PhoneData;
+use Allsecureexchange\Client\Data\Result\ResultData;
+use Allsecureexchange\Client\Data\Result\WalletData;
+use Allsecureexchange\Client\Exception\ClientException;
+use Allsecureexchange\Client\Schedule\ScheduleResult;
+use Allsecureexchange\Client\Exception\InvalidValueException;
+use Allsecureexchange\Client\Schedule\ScheduleError;
+use Allsecureexchange\Client\StatusApi\StatusResult;
+use Allsecureexchange\Client\Transaction\Error;
+use Allsecureexchange\Client\Transaction\Result;
+use Allsecureexchange\Client\Callback\Result as CallbackResult;
 
 /**
  * Class Parser
  *
- * @package allsecureexchange\Client\Xml
+ * @package Allsecureexchange\Client\Xml
  */
 class Parser {
 

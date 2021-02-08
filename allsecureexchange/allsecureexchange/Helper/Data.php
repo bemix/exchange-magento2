@@ -1,6 +1,6 @@
 <?php
 
-namespace allsecureexchange\allsecureexchange\Helper;
+namespace Allsecureexchange\Allsecureexchange\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 
@@ -49,9 +49,9 @@ class Data extends AbstractHelper
 
     public function initializeClient($paymentMethod, $storeId = null)
     {
-        \allsecureexchange\Client\Client::setApiUrl($this->getGeneralConfigData('host', $storeId));
+        \Allsecureexchange\Client\Client::setApiUrl($this->getGeneralConfigData('host', $storeId));
 
-        $client = new \allsecureexchange\Client\Client(
+        $client = new \Allsecureexchange\Client\Client(
             $this->getGeneralConfigData('username', $storeId),
             $this->getGeneralConfigData('password', $storeId),
             $this->getPaymentConfigData('api_key', $paymentMethod, $storeId),

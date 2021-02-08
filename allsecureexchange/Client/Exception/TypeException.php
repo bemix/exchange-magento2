@@ -1,11 +1,11 @@
 <?php
 
-namespace allsecureexchange\Client\Exception;
+namespace Allsecureexchange\Client\Exception;
 
 /**
  * Class TypeException
  *
- * @package allsecureexchange\Client\Exception
+ * @package Allsecureexchange\Client\Exception
  */
 class TypeException extends ClientException {
 

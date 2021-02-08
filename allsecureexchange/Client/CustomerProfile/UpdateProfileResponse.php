@@ -1,13 +1,13 @@
 <?php
 
-namespace allsecureexchange\Client\CustomerProfile;
+namespace Allsecureexchange\Client\CustomerProfile;
 
-use allsecureexchange\Client\Json\ResponseObject;
+use Allsecureexchange\Client\Json\ResponseObject;
 
 /**
  * Class UpdateProfileResponse
  *
- * @package allsecureexchange\Client\CustomerProfile
+ * @package Allsecureexchange\Client\CustomerProfile
  *
  * @property string $profileGuid
  * @property string $customerIdentification

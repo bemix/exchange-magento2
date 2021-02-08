@@ -1,12 +1,12 @@
 <?php
 
 
-namespace allsecureexchange\Client\Http;
+namespace Allsecureexchange\Client\Http;
 
 /**
  * Class CurlExec
  *
- * @package allsecureexchange\Client\Http
+ * @package Allsecureexchange\Client\Http
  */
 class CurlExec {
 

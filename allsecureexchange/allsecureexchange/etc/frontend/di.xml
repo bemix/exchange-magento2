@@ -3,7 +3,7 @@
     <type name="Magento\Checkout\Model\CompositeConfigProvider">
         <arguments>
             <argument name="configProviders" xsi:type="array">
-                <item name="allsecureexchange_config_provider" xsi:type="object">allsecureexchange\allsecureexchange\Model\Ui\ConfigProvider</item>
+                <item name="allsecureexchange_config_provider" xsi:type="object">Allsecureexchange\Allsecureexchange\Model\Ui\ConfigProvider</item>
             </argument>
         </arguments>
     </type>

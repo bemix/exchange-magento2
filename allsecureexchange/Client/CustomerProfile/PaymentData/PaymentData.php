@@ -1,13 +1,13 @@
 <?php
 
-namespace allsecureexchange\Client\CustomerProfile\PaymentData;
+namespace Allsecureexchange\Client\CustomerProfile\PaymentData;
 
-use allsecureexchange\Client\Json\DataObject;
+use Allsecureexchange\Client\Json\DataObject;
 
 /**
  * Class PaymentData
  *
- * @package allsecureexchange\Client\CustomerProfile\PaymentData
+ * @package Allsecureexchange\Client\CustomerProfile\PaymentData
  */
 abstract class PaymentData extends DataObject {
 

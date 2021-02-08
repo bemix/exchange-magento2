@@ -1,16 +1,16 @@
 <?php
 
-namespace allsecureexchange\Client\StatusApi;
+namespace Allsecureexchange\Client\StatusApi;
 
-use allsecureexchange\Client\Callback\ChargebackData;
-use allsecureexchange\Client\Callback\ChargebackReversalData;
-use allsecureexchange\Client\Data\Customer;
-use allsecureexchange\Client\Data\Result\ResultData;
-use allsecureexchange\Client\Transaction\Error;
+use Allsecureexchange\Client\Callback\ChargebackData;
+use Allsecureexchange\Client\Callback\ChargebackReversalData;
+use Allsecureexchange\Client\Data\Customer;
+use Allsecureexchange\Client\Data\Result\ResultData;
+use Allsecureexchange\Client\Transaction\Error;
 
 /**
  *
- * @package allsecureexchange\Client\StatusApi
+ * @package Allsecureexchange\Client\StatusApi
  */
 class StatusResult {
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace allsecureexchange\Client\Data;
+namespace Allsecureexchange\Client\Data;
 
 /**
  * Class Data
  *
- * @package allsecureexchange\Client\Data
+ * @package Allsecureexchange\Client\Data
  */
 abstract class Data {
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace allsecureexchange\Client\Transaction\Base;
+namespace Allsecureexchange\Client\Transaction\Base;
 
 /**
  * Interface AddToCustomerProfileInterface
- * @package allsecureexchange\Client\Transaction\Base
+ * @package Allsecureexchange\Client\Transaction\Base
  */
 interface AddToCustomerProfileInterface {
 

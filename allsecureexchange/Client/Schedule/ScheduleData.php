@@ -1,13 +1,13 @@
 <?php
 
-namespace allsecureexchange\Client\Schedule;
+namespace Allsecureexchange\Client\Schedule;
 
-use allsecureexchange\Client\Transaction\Base\AmountableInterface;
+use Allsecureexchange\Client\Transaction\Base\AmountableInterface;
 
 /**
  * Class Schedule
  *
- * @package allsecureexchange\Client\Data
+ * @package Allsecureexchange\Client\Data
  */
 class ScheduleData implements AmountableInterface {
 

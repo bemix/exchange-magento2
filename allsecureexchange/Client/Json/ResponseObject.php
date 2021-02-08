@@ -1,11 +1,11 @@
 <?php
 
-namespace allsecureexchange\Client\Json;
+namespace Allsecureexchange\Client\Json;
 
 /**
  * Class ResponseObject
  *
- * @package allsecureexchange\Client\Json
+ * @package Allsecureexchange\Client\Json
  *
  * @property bool $success
  */

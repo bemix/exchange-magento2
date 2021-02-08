@@ -2,12 +2,12 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
     <!-- CONFIG -->
-    <virtualType name="allsecureexchangeCardConfig" type="Magento\Payment\Gateway\Config\Config">
+    <virtualType name="AllsecureexchangeCardConfig" type="Magento\Payment\Gateway\Config\Config">
         <arguments>
-            <argument name="methodCode" xsi:type="const">allsecureexchange\allsecureexchange\Model\Ui\ConfigProvider::CREDITCARD_CODE</argument>
+            <argument name="methodCode" xsi:type="const">Allsecureexchange\Allsecureexchange\Model\Ui\ConfigProvider::CREDITCARD_CODE</argument>
         </arguments>
     </virtualType>
-    <virtualType name="allsecureexchangeConfig" type="Magento\Payment\Gateway\Config\Config">
+    <virtualType name="AllsecureexchangeConfig" type="Magento\Payment\Gateway\Config\Config">
         <arguments>
             <argument name="methodCode" xsi:type="string">allsecureexchange_allsecureexchange</argument>
             <argument name="pathPattern" xsi:type="string">%s/%s</argument>

@@ -1,11 +1,11 @@
 <?php
 
-namespace allsecureexchange\Client\CustomerProfile\PaymentData;
+namespace Allsecureexchange\Client\CustomerProfile\PaymentData;
 
 /**
  * Class IbanData
  *
- * @package allsecureexchange\Client\CustomerProfile\PaymentData
+ * @package Allsecureexchange\Client\CustomerProfile\PaymentData
  *
  * @property string $iban
  * @property string $bic

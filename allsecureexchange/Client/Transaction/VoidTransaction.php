@@ -1,13 +1,13 @@
 <?php
 
-namespace allsecureexchange\Client\Transaction;
+namespace Allsecureexchange\Client\Transaction;
 
-use allsecureexchange\Client\Transaction\Base\AbstractTransactionWithReference;
+use Allsecureexchange\Client\Transaction\Base\AbstractTransactionWithReference;
 
 /**
  * Void: Revert a previously preauthorized transaction.
  *
- * @package allsecureexchange\Client\Transaction
+ * @package Allsecureexchange\Client\Transaction
  */
 class VoidTransaction extends AbstractTransactionWithReference {
 

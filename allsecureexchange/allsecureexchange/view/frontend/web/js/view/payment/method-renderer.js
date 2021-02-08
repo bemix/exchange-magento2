@@ -11,7 +11,7 @@ define(
         rendererList.push(
             {
                 type: 'allsecureexchange_creditcard',
-                component: 'allsecureexchange_allsecureexchange/js/view/payment/method-renderer/creditcard'
+                component: 'Allsecureexchange_Allsecureexchange/js/view/payment/method-renderer/creditcard'
             },
         );
 

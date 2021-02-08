@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace allsecureexchange\allsecureexchange\Block\Checkout;
+namespace Allsecureexchange\Allsecureexchange\Block\Checkout;
 
 use Magento\Framework\View\Element\Template;
 
 class PaymentJsLoader extends Template
 {
     /**
-     * @var \allsecureexchange\allsecureexchange\Helper\Data
+     * @var \Allsecureexchange\Allsecureexchange\Helper\Data
      */
     private $allsecureexchangeHelper;
 
@@ -16,12 +16,12 @@ class PaymentJsLoader extends Template
      * Constructor
      *
      * @param Template\Context $context
-     * @param \allsecureexchange\allsecureexchange\Helper\Data $allsecureexchangeHelper,
+     * @param \Allsecureexchange\Allsecureexchange\Helper\Data $allsecureexchangeHelper,
      * @param array $data
      */
     public function __construct(
         Template\Context $context,
-        \allsecureexchange\allsecureexchange\Helper\Data $allsecureexchangeHelper,
+        \Allsecureexchange\Allsecureexchange\Helper\Data $allsecureexchangeHelper,
         array $data = []
     ) {
         parent::__construct($context, $data);

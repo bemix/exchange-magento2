@@ -11,7 +11,7 @@ use Magento\Framework\Option\ArrayInterface;
  *
  * Allsecureexchange Transaction Type Dropdown source
  */
-class TransactionType implements ArrayInterface
+class HostType implements ArrayInterface
 {
     /**
      *
@@ -21,12 +21,12 @@ class TransactionType implements ArrayInterface
     {
         return [
             [
-                'value' => 'Debit',
-                'label' => __('Debit')
+                'value' => 'https://asxgw.com/',
+                'label' => __('Live')
             ],
             [
-                'value' => 'Preauthorize',
-                'label' => __('Preauthorize')
+                'value' => 'https://asxgw.paymentsandbox.cloud/',
+                'label' => __('Test')
             ]
         ];
     }

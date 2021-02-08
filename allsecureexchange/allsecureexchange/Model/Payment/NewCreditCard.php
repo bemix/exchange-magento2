@@ -1,8 +1,8 @@
 <?php
 
-namespace allsecureexchange\allsecureexchange\Model\Payment;
+namespace Allsecureexchange\Allsecureexchange\Model\Payment;
 
-use allsecureexchange\allsecureexchange\Model\Ui\ConfigProvider;
+use Allsecureexchange\Allsecureexchange\Model\Ui\ConfigProvider;
 use Magento\Framework\DataObject;
 use Magento\Payment\Model\InfoInterface;
 use Magento\Payment\Model\MethodInterface;
@@ -229,8 +229,6 @@ class CreditCard implements MethodInterface
     {
         // TODO: Implement getConfigPaymentAction() method.
     }
-	
-	
 
 
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace allsecureexchange\Client\StatusApi;
+namespace Allsecureexchange\Client\StatusApi;
 
-use allsecureexchange\Client\Exception\TypeException;
+use Allsecureexchange\Client\Exception\TypeException;
 
 /**
  * Class StatusRequestData
  *
- * @package allsecureexchange\Client\StatusApi
+ * @package Allsecureexchange\Client\StatusApi
  */
 class StatusRequestData {
 

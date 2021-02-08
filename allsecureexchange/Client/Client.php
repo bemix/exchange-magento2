@@ -1,47 +1,47 @@
 <?php
 
-namespace allsecureexchange\Client;
+namespace Allsecureexchange\Client;
 
-use allsecureexchange\Client\CustomerProfile\CustomerData;
-use allsecureexchange\Client\CustomerProfile\DeleteProfileResponse;
-use allsecureexchange\Client\CustomerProfile\GetProfileResponse;
-use allsecureexchange\Client\CustomerProfile\PaymentInstrument;
-use allsecureexchange\Client\CustomerProfile\UpdateProfileResponse;
-use allsecureexchange\Client\Json\ErrorResponse;
-use allsecureexchange\Client\Exception\RateLimitException;
-use allsecureexchange\Client\Schedule\ScheduleData;
-use allsecureexchange\Client\Exception\ClientException;
-use allsecureexchange\Client\Exception\InvalidValueException;
-use allsecureexchange\Client\Exception\TimeoutException;
-use allsecureexchange\Client\Http\CurlClient;
-use allsecureexchange\Client\Http\Response;
-use allsecureexchange\Client\StatusApi\StatusRequestData;
-use allsecureexchange\Client\Transaction\Base\AbstractTransaction;
-use allsecureexchange\Client\Transaction\Capture;
-use allsecureexchange\Client\Transaction\Debit;
-use allsecureexchange\Client\Transaction\Deregister;
-use allsecureexchange\Client\Transaction\Payout;
-use allsecureexchange\Client\Transaction\Preauthorize;
-use allsecureexchange\Client\Transaction\Refund;
-use allsecureexchange\Client\Transaction\Register;
-use allsecureexchange\Client\Transaction\Result;
-use allsecureexchange\Client\Transaction\VoidTransaction;
-use allsecureexchange\Client\Xml\Generator;
-use allsecureexchange\Client\Xml\Parser;
+use Allsecureexchange\Client\CustomerProfile\CustomerData;
+use Allsecureexchange\Client\CustomerProfile\DeleteProfileResponse;
+use Allsecureexchange\Client\CustomerProfile\GetProfileResponse;
+use Allsecureexchange\Client\CustomerProfile\PaymentInstrument;
+use Allsecureexchange\Client\CustomerProfile\UpdateProfileResponse;
+use Allsecureexchange\Client\Json\ErrorResponse;
+use Allsecureexchange\Client\Exception\RateLimitException;
+use Allsecureexchange\Client\Schedule\ScheduleData;
+use Allsecureexchange\Client\Exception\ClientException;
+use Allsecureexchange\Client\Exception\InvalidValueException;
+use Allsecureexchange\Client\Exception\TimeoutException;
+use Allsecureexchange\Client\Http\CurlClient;
+use Allsecureexchange\Client\Http\Response;
+use Allsecureexchange\Client\StatusApi\StatusRequestData;
+use Allsecureexchange\Client\Transaction\Base\AbstractTransaction;
+use Allsecureexchange\Client\Transaction\Capture;
+use Allsecureexchange\Client\Transaction\Debit;
+use Allsecureexchange\Client\Transaction\Deregister;
+use Allsecureexchange\Client\Transaction\Payout;
+use Allsecureexchange\Client\Transaction\Preauthorize;
+use Allsecureexchange\Client\Transaction\Refund;
+use Allsecureexchange\Client\Transaction\Register;
+use Allsecureexchange\Client\Transaction\Result;
+use Allsecureexchange\Client\Transaction\VoidTransaction;
+use Allsecureexchange\Client\Xml\Generator;
+use Allsecureexchange\Client\Xml\Parser;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 
 /**
  * Class Client
  *
- * @package allsecureexchange\Client
+ * @package Allsecureexchange\Client
  */
 class Client {
 
     /**
      * The default url points to the Gateway
      */
-    const DEFAULT_GATEWAY_URL = 'https://asxgw.com/';
+    const DEFAULT_GATEWAY_URL = 'https://gateway.paymentgateway.cloud/';
 
     const TRANSACTION_ROUTE = 'transaction';
 
@@ -64,7 +64,7 @@ class Client {
     /**
      * @var string
      */
-    protected static $gatewayUrl = 'https://asxgw.com/';
+    protected static $gatewayUrl = 'https://gateway.paymentgateway.cloud/';
 
     /**
      * the api key given by the gateway
@@ -560,7 +560,7 @@ class Client {
     /**
      * void a previously preauthorized transaction
      *
-     * @param \allsecureexchange\Client\Transaction\VoidTransaction $transactionData
+     * @param \Allsecureexchange\Client\Transaction\VoidTransaction $transactionData
      *
      * @return Result
      * @throws ClientException
