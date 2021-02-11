@@ -1,0 +1,6 @@
+"Card Holder","Card Holder"
+"Card Number","Card Number"
+"Expire Date","Expire Date"
+"Month","Month"
+"Year","Year"
+"CVV","CVV"
