@@ -66,7 +66,7 @@ class Callback extends Action implements CsrfAwareActionInterface
             die('invalid request');
         }
 
-        $incrementId = $data['transactionId'];
+        $incrementId = strstr($data['transactionId'], '-', true);
 
         /** @var Order $order */
         $order = $this->_objectManager->create('Magento\Sales\Model\Order');
@@ -93,27 +93,58 @@ class Callback extends Action implements CsrfAwareActionInterface
             die('invalid callback');
         }
 
-        switch ($data['transactionType']) {
-            case 'DEBIT':
+        if ($data['result'] == 'OK') {
+			switch ($data['transactionType']) {
+				case 'DEBIT':
+					/**
+					 * change order status to 'Processing'
+					*/
+					$order->addStatusHistoryComment($data['transactionType'] .':' . $data['paymentMethod'] );
+					$order->setState(Order::STATE_PROCESSING, true);
+					$order->setStatus(Order::STATE_PROCESSING);
 
-                $order->setState(Order::STATE_PROCESSING);
-                $order->setStatus(Order::STATE_PROCESSING);
+					/** create invoice */
+					$this->createInvoice($order);
+					
+					/** @var Order\Payment $payment */
+					$payment = $order->getPayment();
+					$payment->setTransactionId($data['purchaseId']);
+					$payment->setLastTransId($data['purchaseId']);
+					$payment->addTransaction('capture');
 
-                // todo: create invoice
+					$orderResource = $this->_objectManager->get($order->getResourceName());
+					$orderResource->save($order); 
 
-                /** @var Order\Payment $payment */
-                $payment = $order->getPayment();
-                $payment->setTransactionId($data['purchaseId']);
-                $payment->setLastTransId($data['purchaseId']);
-                $payment->addTransaction('capture');
 
-                $orderResource = $this->_objectManager->get($order->getResourceName());
-                $orderResource->save($order);
+					break;
+					
+				case 'PREAUTHORIZE':
+					/**
+					 * change order status to 'Pending'
+					*/
+					$order->addStatusHistoryComment($data['transactionType'] .' : ' . $data['paymentMethod'] );
+					$order->setState(Order::STATE_NEW, true)->save();
+					$order->setStatus(Order::STATE_PENDING_PAYMENT);
+						
+					/** create invoice */
+					$this->createInvoice($order);
 
-                break;
-        }
-
-        die('OK');
+					/** @var Order\Payment $payment */
+					$payment = $order->getPayment();
+					$payment->setTransactionId($data['purchaseId']);
+					$payment->setLastTransId($data['purchaseId']);
+					
+					$orderResource = $this->_objectManager->get($order->getResourceName());
+					$orderResource->save($order); 
+			}
+		} else {
+			$order->addStatusHistoryComment($data['errors']['error']['message']); 
+			$order->setState(Order::STATE_CANCELED, true); 
+			$order->setStatus(Order::STATE_CANCELED);
+			$orderResource = $this->_objectManager->get($order->getResourceName()); 
+			$orderResource->save($order); 
+		}							
+	    die('OK');
     }
 
     private function createInvoice($order)

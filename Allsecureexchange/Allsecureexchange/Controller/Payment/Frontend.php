@@ -108,8 +108,9 @@ class Frontend extends Action
             $transaction->setTransactionToken($token);
         }
         $transaction->addExtraData('3dsecure', 'OPTIONAL');
-
-        $transaction->setTransactionId($order->getIncrementId());
+		
+		$asx_transaction_order_id = $order->getIncrementId() .'-'. date('dmy').time();
+        $transaction->setTransactionId($asx_transaction_order_id);
         $transaction->setAmount(\number_format($order->getGrandTotal(), 2, '.', ''));
         $transaction->setCurrency($order->getOrderCurrency()->getCode());
 
@@ -150,8 +151,8 @@ class Frontend extends Action
         $baseUrl = $this->urlBuilder->getRouteUrl('allsecureexchange');
 
         $transaction->setSuccessUrl($this->urlBuilder->getUrl('checkout/onepage/success'));
-        $transaction->setCancelUrl($baseUrl . 'payment/redirect?status=cancel');
-        $transaction->setErrorUrl($baseUrl . 'payment/redirect?status=error');
+        $transaction->setCancelUrl($baseUrl . 'payment/redirect?status=cancel' . '&txid='. $asx_transaction_order_id);
+        $transaction->setErrorUrl($baseUrl . 'payment/redirect?status=error' . '&txid='. $asx_transaction_order_id );
 
         $transaction->setCallbackUrl($baseUrl . 'payment/callback');
 

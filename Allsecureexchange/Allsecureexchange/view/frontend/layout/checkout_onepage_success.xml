@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<body>
+<referenceContainer name="order.success.additional.info">
+    <block class="Allsecureexchange\Allsecureexchange\Block\Success"
+           name="test.order.success"
+           template="Allsecureexchange_Allsecureexchange::order/success.phtml"
+           after="-">
+    </block>
+</referenceContainer>
+</body>
