@@ -150,7 +150,7 @@ class Frontend extends Action
 
         $baseUrl = $this->urlBuilder->getRouteUrl('allsecureexchange');
 
-        $transaction->setSuccessUrl($this->urlBuilder->getUrl('checkout/onepage/success'));
+        $transaction->setSuccessUrl($this->urlBuilder->getUrl('checkout/onepage/success'). '?txid='. $asx_transaction_order_id);
         $transaction->setCancelUrl($baseUrl . 'payment/redirect?status=cancel' . '&txid='. $asx_transaction_order_id);
         $transaction->setErrorUrl($baseUrl . 'payment/redirect?status=error' . '&txid='. $asx_transaction_order_id );
 

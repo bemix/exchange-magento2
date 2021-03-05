@@ -20,7 +20,8 @@
                 <api_key></api_key>
                 <shared_secret></shared_secret>
                 <integration_key></integration_key>
-		<transaction_type>Debit</transaction_type>
+				<transaction_type>Debit</transaction_type>
+				<card_type>VISA,MAESTRO,MASTERCARD,AMEX,DINACARD</card_type>
                 <seamless>0</seamless>
             </allsecureexchange_creditcard>
         </payment>

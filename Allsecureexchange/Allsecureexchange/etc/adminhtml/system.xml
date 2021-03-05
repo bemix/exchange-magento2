@@ -53,7 +53,12 @@
 						<source_model>Allsecureexchange\Allsecureexchange\Model\Source\TransactionType</source_model>
                         <config_path>payment/allsecureexchange_creditcard/transaction_type</config_path>
                     </field>
-                    <field id="sort_order" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+					<field id="card_type" translate="label" type="multiselect" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+						<label>Card Type</label>
+						<source_model>Allsecureexchange\Allsecureexchange\Model\Source\CardType</source_model>
+                        <config_path>payment/allsecureexchange_creditcard/card_type</config_path>
+                    </field>
+                    <field id="sort_order" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
                         <label>Sort Order</label>
                         <config_path>payment/allsecureexchange_creditcard/sort_order</config_path>
                     </field>
