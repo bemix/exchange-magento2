@@ -1,0 +1,38 @@
+<?php
+$params = $block->getTemplateParams();
+if ($params) {
+?>
+<script>
+
+</script>
+<div class='allsecurepay-payment-data'>
+    <?php if ($params['response_status'] == 'success') {?>
+        <h2><?php echo __('Transaction details')?>: </h2>
+        <ul class='allsecurepay-thankyou-order-details order_details'>
+            <?php if ($params['authCode']){?>
+            <li class='allsecurepay-order-overview'><?php echo __('Transaction Codes')?> <strong><?php echo $params['authCode']?></strong></li>
+            <?php }?>
+            <li class='allsecurepay-order-overview'><?php echo __('Transaction ID')?> <strong><?php echo $params['transactionId']?></strong></li>
+            <li class='allsecurepay-order-overview'><?php echo __('Card Type')?> <strong><?php echo $params['binBrand']?> *** <?php echo $params['lastFourDigits']?></strong></li>
+            <li class='allsecurepay-order-overview'><?php echo __('Payment Type')?> <strong><?php echo $params['transactionType']?></strong></li>
+            <li class='allsecurepay-order-overview'><?php echo __('Transaction Time')?> <strong><?php echo $params['timestamp']?></strong></li>
+        </ul>
+    <?php } else { ?>
+        <h2><?php echo __('Allsecureexchange payemnt transaction failed.')?>: </h2>
+        <ul class='allsecurepay-thankyou-order-details order_details'>
+    <?php 
+        foreach ($params['errors'] as $error) {
+            $errorCode = $error->getCode();
+            if (empty($errorCode)) {
+                $errorCode = $error->getAdapterCode();
+            }
+            $errorMessage = \Allsecureexchange\Allsecureexchange\Model\Pay::getErrorMessageByCode($errorCode);
+    ?>
+           <li class='allsecurepay-order-overview'><strong><?php echo $errorMessage?></strong></li>     
+    <?php } ?>
+        </ul>
+    <?php } ?>
+</div>
+<?php
+}
+?>

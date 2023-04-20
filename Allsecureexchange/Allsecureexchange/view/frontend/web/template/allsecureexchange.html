@@ -1,0 +1,147 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<style>
+    .fieldset .allsecurepay_group_label.required:after{
+    content: '*';
+    color: #e02b27;
+    font-size: 1.2rem;
+    margin: 0 0 0 5px;
+}
+</style>
+<div class="payment-method" data-bind="css: {'_active': (getCode() == isChecked())}">
+    <div class="payment-method-title field choice">
+        <input type="radio"
+               name="payment[method]"
+               class="radio"
+               data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()">
+        <label data-bind="attr: {'for': getCode()}" class="label"><span data-bind="text: getTitle()"></span></label>
+    </div>
+
+    <div class="payment-method-content">
+        <p data-bind="html: getInstructions()"></p>
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        
+        <!-- ko if: isPaymentJsEnabled -->
+        <fieldset class="fieldset payment items ccard allsecureexchange" id="payment_form_allsecureexchange">
+             <input type="hidden" name="allsecurepay_transaction_token" id="allsecurepay_transaction_token" />
+            <legend class="legend">
+                <span><!-- ko i18n: 'Credit Card Information'--><!-- /ko --></span>
+            </legend><br>
+ 
+            <div class="field number required">
+                <label class="label" for="allsecurepay_cc_name">
+                    <span><!-- ko i18n: 'Card holder'--><!-- /ko --></span>
+                </label>
+                <div class="control">
+                    <input type="text" 
+                        name="allsecurepay_cc_name" 
+                        class="input-text" 
+                        oncopy="return false;" 
+                        oncut="return false;" 
+                        onpaste="return false;" 
+                        id="allsecurepay_cc_name"
+                        data-container="allsecurepay-cc-name"
+                        autocomplete="off" 
+                     >
+                </div>
+                <div id="allsecurepay_cc_name-required-error" class="mage-error" style="display: none">
+                    <!-- ko i18n: 'This is a required field.'--><!-- /ko -->
+                </div>
+                <div id="allsecurepay_cc_name-invalid-error" class="mage-error" style="display: none">
+                    <!-- ko i18n: 'Please enter a valid card holder name in this field.'--><!-- /ko -->
+                </div>
+            </div>
+            <div class="field number required">
+                <label class="label" for="allsecurepay_cc_number">
+                    <span><!-- ko i18n: 'Card Number'--><!-- /ko --></span>
+                </label>
+                <div class="control" id="allsecurepay_cc_number" style="height: 35px;">
+                    <img data-bind="attr: {src: getImageUrl('loadingAnimation.gif')}" class="allsecurepay-field-loader" />
+                </div>
+                <div id="allsecurepay_cc_number-error" class="mage-error" style="display: none">
+                    <!-- ko i18n: 'Please enter a valid number in this field.'--><!-- /ko -->
+                </div>
+                <div id="allsecurepay_cc_number-not-supported-error" class="mage-error" style="display: none">
+                    <!-- ko i18n: 'This card type is not supported.'--><!-- /ko -->
+                </div>
+            </div>
+            <div class="field date required">
+                <div class="control">
+                    <div class="fields group group-2">
+                        <div class="field no-label month required">
+                            <label class="label allsecurepay_group_label required" for="allsecurepay_cc_expiration">
+                                <span style="font-weight: 600;"><!-- ko i18n: 'Expiration Date'--><!-- /ko --></span>
+                            </label>
+                            <div class="control">
+                                <input type="hidden" class="input-text " id="allsecurepay_expiration_month">
+                                <input type="hidden" class="input-text " id="allsecurepay_expiration_year">
+                                <input type="text" 
+                                id="allsecurepay_expiration_date"
+                                class="input-text" 
+                                maxlength = "5"
+                                inputmode="tel"
+                                placeholder="--/--"
+                                autocomplete="off"
+                                style="width: 100px;  text-align: center;    margin-right: 68px;"
+                                >
+                                <div id="allsecurepay_expiration-required-error" class="mage-error" style="display: none">
+                                    <!-- ko i18n: 'This is a required field.'--><!-- /ko -->
+                                </div>
+                                <div id="allsecurepay_expiration-invalid-error" class="mage-error" style="display: none">
+                                    <!-- ko i18n: 'Incorrect credit card expiration date.'--><!-- /ko -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field cvv required">
+                            <label class="label allsecurepay_group_label required" for="allsecurepay_cc_cvv">
+                                <span style="font-weight: 600;"><!-- ko i18n: 'CVV'--><!-- /ko --></span>
+                            </label>
+                            <div class="control" id="allsecurepay_cc_cvv" style="height: 35px;">
+                                <img data-bind="attr: {src: getImageUrl('loadingAnimation.gif')}" class="allsecurepay-field-loader" />
+                            </div>
+                            <div id="allsecurepay_cc_cvv-error" class="mage-error" style="display: none">
+                                <!-- ko i18n: 'Please enter a valid number in this field.'--><!-- /ko -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </fieldset>
+        <!-- /ko -->
+        
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        
+        <div class="checkout-agreements-block">
+            <!-- ko foreach: $parent.getRegion('before-place-order') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button class="action primary checkout"
+                        type="submit"
+                        data-bind="
+                        click: placeOrder,
+                        attr: {title: $t('Place Order')},
+                        enable: (getCode() == isChecked()),
+                        css: {disabled: !isPlaceOrderActionAllowed()}
+                        "
+                        disabled>
+                    <span data-bind="i18n: 'Place Order'"></span>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>

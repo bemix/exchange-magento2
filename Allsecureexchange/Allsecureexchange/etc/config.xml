@@ -1,29 +1,22 @@
 <?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
-    <default>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+<default>
+    <payment>
         <allsecureexchange>
-            <general>
-                <username></username>
-                <password></password>
-                <host>https://asxgw.com/</host>
-                <sandbox>0</sandbox>
-            </general>
+            <model>Allsecureexchange\Allsecureexchange\Model\Pay</model>
+            <active>0</active>
+            <title>Credit Card</title>
+            <operation_mode>test</operation_mode>
+            <checkout_mode>paymentjs</checkout_mode>
+            <merchant_bank>none</merchant_bank>
+            <banner_type>none</banner_type>
+            <transaction_email>0</transaction_email>
+            <allowspecific>0</allowspecific>
+            <order_status>pending_payment</order_status>
+            <payment_action>debit</payment_action>
+            <debug>0</debug>
         </allsecureexchange>
-        <payment>
-            <allsecureexchange_creditcard>
-                <active>1</active>
-                <model>Allsecureexchange\Allsecureexchange\Model\Payment\CreditCard</model>
-                <title>Credit Cards</title>
-                <order_status>pending</order_status>
-                <allowspecific>0</allowspecific>
-                <sort_order>1</sort_order>
-                <api_key></api_key>
-                <shared_secret></shared_secret>
-                <integration_key></integration_key>
-				<transaction_type>Debit</transaction_type>
-				<card_type>VISA,MAESTRO,MASTERCARD,AMEX,DINACARD</card_type>
-                <seamless>0</seamless>
-            </allsecureexchange_creditcard>
-        </payment>
-    </default>
+    </payment>
+</default>
 </config>

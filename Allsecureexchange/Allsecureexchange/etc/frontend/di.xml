@@ -1,10 +1,20 @@
 <?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <type name="Magento\Checkout\Model\CompositeConfigProvider">
         <arguments>
             <argument name="configProviders" xsi:type="array">
-                <item name="allsecureexchange_config_provider" xsi:type="object">Allsecureexchange\Allsecureexchange\Model\Ui\ConfigProvider</item>
+                <item name="allsecurepay_config_provider" xsi:type="object">Allsecureexchange\Allsecureexchange\Model\ConfigProvider</item>
             </argument>
         </arguments>
+    </type>
+    <type name="Magento\Framework\App\Request\CsrfValidator">
+        <plugin name="csrf_validator_skip" type="Allsecureexchange\Allsecureexchange\Plugin\CsrfValidatorSkip" />
     </type>
 </config>
