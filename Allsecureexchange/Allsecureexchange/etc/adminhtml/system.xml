@@ -1,71 +1,150 @@
 <?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
         <section id="payment">
-            <group id="allsecureexchange_general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="allsecureexchange" translate="label comment" type="text"
+                   sortOrder="310" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Allsecureexchange</label>
-
-                <field id="username" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>API Username</label>
-                    <config_path>allsecureexchange/general/username</config_path>
+                <comment><![CDATA[You want to securely and quickly accept payments 
+on your online shop or mobile app by using one of the leading gateway technologies? 
+Looking for a PCI compliant payment solution that includes proven fraud prevention mechanism? 
+Wanting to seamlessly integrate the most common national and international payment methods? 
+We will support you on selecting suitable packages and help you to make the right decisions
+ in accepting and managing your payment transactions anytime, anywhere.]]></comment>
+                <field id="active" translate="label" type="select"
+                       sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="password" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="title" translate="label comment" type="text"
+                       sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                    <validate>required-entry</validate>
+                    <comment>This controls the title which the user sees during checkout.</comment>
+                </field>
+                <field id="instructions" translate="label comment" type="textarea"
+                       sortOrder="22" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Description</label>
+                    <comment>This controls the descriptive text which the user sees while choosing this payment option.</comment>
+                </field>
+                <field id="operation_mode" translate="label" type="select" sortOrder="24" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Operation Mode</label>
+                    <source_model>Allsecureexchange\Allsecureexchange\Model\System\Source\OperationMode</source_model>
+                </field>
+                <field id="checkout_mode" translate="label comment" type="select" sortOrder="25" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Checkout Mode</label>
+                    <source_model>Allsecureexchange\Allsecureexchange\Model\System\Source\CheckoutMode</source_model>
+                    <comment><![CDATA[<strong>Payment.js Javascript Integration</strong><br/>
+                    With the payment.js integration you can securely accept card payments and 
+                    integrate card number and CVV collection directly into your shop website 
+                    without the need for redirecting to a separate payment form. 
+                    The payment.js library renders 2 separate iFrames for card number and CVV/CVC in your checkout page. 
+                    This reduces your PCI-DSS scope to as low as it can get (PCI-DSS SAQ-A).<br/><br/>
+                    <strong>Full-Page Redirect</strong><br/>
+                    Customer are redirected to the Payment Service Provider (PSP) page. 
+                    Here, the customer fills in his or her payment details, and after paying, 
+                    is redirected back to your website to complete the checkout process.]]></comment>
+                </field>
+                
+                <field id="api_credentials" translate="label" type="label"
+                       sortOrder="26" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Credentials</label>
+                </field>
+                <field id="api_user" translate="label comment" type="text"
+                       sortOrder="27" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API User</label>
+                    <validate>required-entry</validate>
+                    <comment>Please enter your Exchange API User. This is needed in order to take the payment.</comment>
+                </field>
+                <field id="api_passowrd" translate="label comment" type="text"
+                       sortOrder="28" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>API Password</label>
-                    <config_path>allsecureexchange/general/password</config_path>
+                    <validate>required-entry</validate>
+                    <comment>Please enter your Exchange API Password. This is needed in order to take the payment.</comment>
                 </field>
-		<field id="host" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-			<label>Host</label>
-			<source_model>Allsecureexchange\Allsecureexchange\Model\Source\HostType</source_model>
-			<config_path>allsecureexchange/general/host</config_path>
-		</field>
-                <group id="allsecureexchange_cc" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Credit Card Settings</label>
+                <field id="api_key" translate="label comment" type="text"
+                       sortOrder="29" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Key</label>
+                    <validate>required-entry</validate>
+                    <comment>Please enter your Exchange API Key. This is needed in order to take the payment.</comment>
+                </field>
+                <field id="shared_secret" translate="label comment" type="text"
+                       sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shared Secret</label>
+                    <validate>required-entry</validate>
+                    <comment>Please enter your Exchange API Key. This is needed in order to take the payment.</comment>
+                </field>
+                <field id="integration_key" translate="label comment" type="text"
+                       sortOrder="31" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Integration Key</label>
+                    <comment>Public Integration Key required only if payment.js integration required.</comment>
+                </field>
+                
+                <field id="payment_details" translate="label" type="label"
+                       sortOrder="32" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Payment Details</label>
+                </field>
+                <field id="payment_action" translate="label comment" type="select" sortOrder="34" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Transaction Type</label>
+                    <source_model>Allsecureexchange\Allsecureexchange\Model\System\Source\TransactionType</source_model>
+                    <comment><![CDATA[<strong>Debit: </strong>Debits the end customer with the given amount.<br/>
+                    <strong>Preauthorize: </strong>Reserves the payment amount on the customer's payment instrument. 
+                    Preauthorization must be captured afterwards to conclude the transaction.]]></comment>
+                </field>
+                <field id="card_supported" translate="label comment" type="multiselect" sortOrder="35" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Accepted Cards</label>
+                    <validate>required-entry</validate>
+                    <source_model>Allsecureexchange\Allsecureexchange\Model\System\Source\CardSupported</source_model>
+                    <comment>Select the cards which you would like to accept</comment>
+                </field>
+                <field id="transaction_email" translate="label comment" type="select" sortOrder="43" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable transaction details in the confirmation email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[When enabled, plugin will add transaction details in the order confirmation email.<br/><br/>
+                        <strong>How to add transaction data to email</strong><br/>
+                        <strong>Step 1:</strong> MARKETING => Email Templates => Add New Template<br/>
+                        <strong>Step 2:</strong> Load Default Template => Select Template => Select Sales => New Order => Click Load Template<br/>
+                        <strong>Step 3:</strong> Template Content => Add this piece of code {{block class="Allsecureexchange\Allsecureexchange\Block\PaymentInfo" order_id=$order_id}} to template where you would like to display the Allsecureexchange payment information.<br/>
+                        For example, you can add this under Payment method display like below:<br/>
+                        {{block class="Allsecureexchange\Allsecureexchange\Block\PaymentInfo" order_id=$order_id}}<br/>
+                        <strong>Step 4:</strong> Enter Template Name  like "Sales New Order Confirmation" => Hit Save Template button.<br/>
+                        <strong>Step 5:</strong> STORES => Configuration => Sales => Sales Emails => Order => New Order Confirmation Template => "Sales New Order Confirmation" => Save Config<br/>
+                        <strong>Step 6:</strong> SYSTEM => Cache Management => Flush Magento Cache<br/><br/>
+                        Repeat Steps 1-6 to add transaction details into the guest order confirmation email, select 'New Order for Guest' template<br/><br/>
+                        Or if you have already added a template for the new order confirmation template for customization, then just add this piece of code {{block class="Allsecureexchange\Allsecureexchange\Block\PaymentInfo" order_id=$order_id}} to template content where you would like to display the Allsecureexchange payment information. 
+                    ]]></comment>
+                </field>
+                <field id="transaction_confirmation_page" translate="label comment" type="select" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable transaction details in the confirmation page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>When enabled, plugin will add transaction details in the order confirmation page</comment>
+                </field>
+                <field id="additional_settings" translate="label" type="label"
+                       sortOrder="75" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Additional Settings</label>
+                </field>
 
-                    <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                        <label>Enabled</label>
-                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                        <config_path>payment/allsecureexchange_creditcard/active</config_path>
-                    </field>
-                    <field id="api_key" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
-                        <label>Api Key</label>
-                        <config_path>payment/allsecureexchange_creditcard/api_key</config_path>
-                    </field>
-                    <field id="shared_secret" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
-                        <label>Shared Secret</label>
-                        <config_path>payment/allsecureexchange_creditcard/shared_secret</config_path>
-                    </field>
-					
-                    <!-- hidden untill finalized -->
-					<!-- 
-					<field id="seamless" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
-                        <label>Seamless Integration</label>
-                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
-                        <config_path>payment/allsecureexchange_creditcard/seamless</config_path>
-                    </field> 
-					-->
-					
-                    <field id="integration_key" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
-                        <label>Integration Key</label>
-                        <config_path>payment/allsecureexchange_creditcard/integration_key</config_path>
-                    </field>
-					<field id="transaction_type" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
-						<label>Transaction Type</label>
-						<source_model>Allsecureexchange\Allsecureexchange\Model\Source\TransactionType</source_model>
-                        <config_path>payment/allsecureexchange_creditcard/transaction_type</config_path>
-                    </field>
-					<field id="card_type" translate="label" type="multiselect" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
-						<label>Card Type</label>
-						<source_model>Allsecureexchange\Allsecureexchange\Model\Source\CardType</source_model>
-                        <config_path>payment/allsecureexchange_creditcard/card_type</config_path>
-                    </field>
-                    <field id="sort_order" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
-                        <label>Sort Order</label>
-                        <config_path>payment/allsecureexchange_creditcard/sort_order</config_path>
-                    </field>
-                </group>
-
+                <field id="debug" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Debug</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allowspecific" translate="label" type="allowspecific" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Countries</label>
+                    <source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sort Order</label>
+                </field>
             </group>
-
         </section>
     </system>
 </config>

@@ -1,55 +1,209 @@
-"Credit Cards","Credit Cards"
-"Card Holder","Card Holder"
+"Empty response received from gateway.","Empty response received from gateway."
+"'Payment is failed. ' .","'Payment is failed. ' ."
+"Cancelled by the customer.","Cancelled by the customer."
+"Error from gateway.","Error from gateway."
+"'Allsecureexchange Payment is failed. ' .","'Allsecureexchange Payment is failed. ' ."
+"Invalid transaction token.","Invalid transaction token."
+"Allsecureexchange payment request is created successfully and but payment debt status received as pending. ","Allsecureexchange payment request is created successfully and but payment debt status received as pending. "
+"Allsecureexchange payment request is created successfully and but payment preauthorize status received as pending. ","Allsecureexchange payment request is created successfully and but payment preauthorize status received as pending. "
+"Transaction ID: ","Transaction ID: "
+"Allsecureexchange payment is successfully debited. ","Allsecureexchange payment is successfully debited. "
+"Allsecureexchange payment is successfully reserved for manual capture. ","Allsecureexchange payment is successfully reserved for manual capture. "
+"Callback validation failed.","Callback validation failed."
+"Concerning order:","Concerning order:"
+"Merchant transaction id validation failed.","Merchant transaction id validation failed."
+"Allsecureexchange payment is successfully captured. ","Allsecureexchange payment is successfully captured. "
+"Allsecureexchange payment is successfully voided. ","Allsecureexchange payment is successfully voided. "
+"Unknown callback result type.","Unknown callback result type."
+"Order does not exist.","Order does not exist."
+"Order ID missing in the callback URL.","Order ID missing in the callback URL."
+Month,Month
+Year,Year
+"Cannot create an invoice.","Cannot create an invoice."
+"Cannot create an invoice without products.","Cannot create an invoice without products."
+"Allsecureexchange capture request is failed.","Allsecureexchange capture request is failed."
+"Unknown response from gateway.","Unknown response from gateway."
+"Allsecureexchange payment is successfully refunded. ","Allsecureexchange payment is successfully refunded. "
+"Allsecureexchange refund request is failed.","Allsecureexchange refund request is failed."
+"Refund is not possible for this order because order was neither debited nor captured.","Refund is not possible for this order because order was neither debited nor captured."
+"Unknown error.","Unknown error."
+"Allsecureexchange payment authorization is successfully voided. ","Allsecureexchange payment authorization is successfully voided. "
+"Allsecureexchange void request is failed.","Allsecureexchange void request is failed."
+"Void is not possible for this order because order was neither debited nor captured.","Void is not possible for this order because order was neither debited nor captured."
+"Unknown error","Unknown error"
+"CONFIG ERROR. Some fundamental error in your request","CONFIG ERROR. Some fundamental error in your request"
+"CONFIG ERROR. The upstream system responded with an unknown response","CONFIG ERROR. The upstream system responded with an unknown response"
+"CONFIG ERROR. Request data are malformed or missing","CONFIG ERROR. Request data are malformed or missing"
+"CONFIG ERROR. Transaction could not be processed","CONFIG ERROR. Transaction could not be processed"
+"CONFIG ERROR. The request signature you provided was wrong","CONFIG ERROR. The request signature you provided was wrong"
+"CONFIG ERROR. The XML you provided was malformed or invalid","CONFIG ERROR. The XML you provided was malformed or invalid"
+"CONFIG ERROR. Preconditions failed, e.g. capture on a failed authorize","CONFIG ERROR. Preconditions failed, e.g. capture on a failed authorize"
+"CONFIG ERROR. Something is wrong your configuration, please contact your integration engineer","CONFIG ERROR. Something is wrong your configuration, please contact your integration engineer"
+"CONFIG ERROR. Unexpected system error","CONFIG ERROR. Unexpected system error"
+"CONFIG ERROR. We received an error which is not (yet) mapped to a better error code","CONFIG ERROR. We received an error which is not (yet) mapped to a better error code"
+"Account closed. The customer cancelled permission for his payment instrument externally","Account closed. The customer cancelled permission for his payment instrument externally"
+"User cancelled. Transaction was cancelled by customer","User cancelled. Transaction was cancelled by customer"
+"Transaction declined. Please try again later or change the card","Transaction declined. Please try again later or change the card"
+"Quota regulation. Card limit reached","Quota regulation. Card limit reached"
+"Transaction expired. Customer took to long to submit his payment info","Transaction expired. Customer took to long to submit his payment info"
+"Insufficient funds. Card limit reached","Insufficient funds. Card limit reached"
+"Incorrect payment info. Double check and try again","Incorrect payment info. Double check and try again"
+"Invalid card. Try with some other card","Invalid card. Try with some other card"
+"Expired card. Try with some other card","Expired card. Try with some other card"
+"Invalid card. Call your bank immediately","Invalid card. Call your bank immediately"
+"Unsupported card. Try with some other card","Unsupported card. Try with some other card"
+"Transaction cancelled","Transaction cancelled"
+"Transaction declined. Please try again later or call your bank","Transaction declined. Please try again later or call your bank"
+"Invalid IBAN. Double check and try again","Invalid IBAN. Double check and try again"
+"Invalid BIC. Double check and try again","Invalid BIC. Double check and try again"
+"Customer data invalid. Double check and try again","Customer data invalid. Double check and try again"
+"CVV required. Double check and try again","CVV required. Double check and try again"
+"3D-Secure Verification failed. Please call your bank or try with a non 3-D Secure card","3D-Secure Verification failed. Please call your bank or try with a non 3-D Secure card"
+"COMMUNICATION PROBLEM. Timeout. Try again after a short pause","COMMUNICATION PROBLEM. Timeout. Try again after a short pause"
+"COMMUNICATION PROBLEM. Transaction not allowed","COMMUNICATION PROBLEM. Transaction not allowed"
+"COMMUNICATION PROBLEM. System temporary unavailable. Try again after a short pause","COMMUNICATION PROBLEM. System temporary unavailable. Try again after a short pause"
+"Duplicate transaction ID","Duplicate transaction ID"
+"COMMUNICATION PROBLEM. Try again after a short pause","COMMUNICATION PROBLEM. Try again after a short pause"
+"Schedule request is invalid","Schedule request is invalid"
+"Schedule request failed","Schedule request failed"
+"Schedule action is not valid","Schedule action is not valid"
+"RegistrationId is required","RegistrationId is required"
+"RegistrationId is not valid","RegistrationId is not valid"
+"The registrationId must point to a ""register"", ""debit+register"" or ""preuth+register""","The registrationId must point to a ""register"", ""debit+register"" or ""preuth+register"""
+"Initial transaction is not a ""register"", ""debit+register"" or ""preuth+register""","Initial transaction is not a ""register"", ""debit+register"" or ""preuth+register"""
+"The period between the initial and second transaction must be greater than 24 hours","The period between the initial and second transaction must be greater than 24 hours"
+"The scheduleId is not valid or does not match to the connector","The scheduleId is not valid or does not match to the connector"
+"The startDateTime is invalid or older than 24 hours","The startDateTime is invalid or older than 24 hours"
+"The continueDateTime is invalid or older than 24 hours","The continueDateTime is invalid or older than 24 hours"
+"The status of the schedule is not valid for the requested operation","The status of the schedule is not valid for the requested operation"
+"No Banner","No Banner"
+"Light Background","Light Background"
+"Dark Background","Dark Background"
+VISA,VISA
+MASTERCARD,MASTERCARD
+MAESTRO,MAESTRO
+AMEX,AMEX
+DINERS,DINERS
+JCB,JCB
+DINA,DINA
+DISCOVER,DISCOVER
+"Payment.js Javascript Integration","Payment.js Javascript Integration"
+"Full-Page Redirect","Full-Page Redirect"
+Select,Select
+"Hipotekarna Banka","Hipotekarna Banka"
+"AIK Banka","AIK Banka"
+"Banca Intesa","Banca Intesa"
+"NLB Banka Montenegro","NLB Banka Montenegro"
+"CKB Banka","CKB Banka"
+"Raiffeisen Bank","Raiffeisen Bank"
+Test,Test
+Live,Live
+Debit,Debit
+Preauthorize,Preauthorize
+"Transaction details","Transaction details"
+"Transaction Codes","Transaction Codes"
+"Transaction ID","Transaction ID"
+"Card Type","Card Type"
+"Payment Type","Payment Type"
+"Transaction Time","Transaction Time"
+"Allsecureexchange payemnt transaction failed.","Allsecureexchange payemnt transaction failed."
+"Credit Card Information","Credit Card Information"
+"Card holder","Card holder"
+"This is a required field.","This is a required field."
+"Please enter a valid card holder name in this field.","Please enter a valid card holder name in this field."
 "Card Number","Card Number"
-"Expire Date","Expire Date"
-"Month","Month"
-"Year","Year"
-"CVV","CVV"
-"1000","CONFIG ERROR. Some fundamental error in your request."
-"1001","CONFIG ERROR. The upstream system responded with an unknown response."
-"1002","CONFIG ERROR. Request data are malformed or missing."
-"1003","CONFIG ERROR. Transaction could not be processed."
-"1004","CONFIG ERROR. The request signature you provided was wrong."
-"1005","CONFIG ERROR. The XML you provided was malformed or invalid."
-"1006","CONFIG ERROR. Preconditions failed, e.g. capture on a failed authorize."
-"1007","CONFIG ERROR. Something is wrong your configuration, please contact your integration engineer."
-"1008","CONFIG ERROR. Unexpected system error."
-"9999","We received an error which is not (yet) mapped to a better error code."
-"2001","The customer cancelled permission for his payment instrument externally. Please try with another card."
-"2002","Transaction was cancelled by customer."
-"2003","Transaction declined by the bank. Please try with another card."
-"2004","Some limit reached. Please try with another card."
-"2005","Transaction expired. Customer took to long to submit his payment info."
-"2006","Insufficient funds/Card limit reached. Please try with another card."
-"2007","Incorrect payment info. Please check and try again."
-"2008","Invalid card. Please try with another card."
-"2009","Expired card. Please try with another card."
-"2010","Your card cannot be accepted. Please try with another card or contact your bank."
-"2011","Your card cannot be accepted. Please try with another card or contact your bank."
-"2012","Transaction cancelled."
-"2013","Your card cannot be accepted. Please try with another card or contact your bank."
-"2014","Your card cannot be accepted. Please try with another card or contact your bank."
-"2015","Your card cannot be accepted. Please try with another card or contact your bank."
-"2016","Your card cannot be accepted. Please try with another card or contact your bank."
-"2017","IBAN not valid. Please check and try again."
-"2018","BIC invalid. Please check and try again."
-"2019","Customer data invalid. Please check and try again."
-"2020","CVV required. Please check and try again."
-"2021","3D-Secure Verification failed. Please with non 3D-Secure card or contact your bank."
-"3001","COMMUNICATION ERROR: Timeout. Please try again later."
-"3002","COMMUNICATION ERROR: Transaction not Allowed."
-"3003","COMMUNICATION ERROR: System temporary unavailable. Please try again later."
-"3004","Duplicate transaction ID."
-"3005","COMMUNICATION ERROR: Please try again later."
-"7001","Schedule request is invalid."
-"7002","Schedule request failed."
-"7005","ScheduleAction is not valid."
-"7010","RegistrationId is required."
-"7020","RegistrationId is not valid."
-"7030","Reference transaction not a register.The registrationId must point to a register or a debit-with-register or a preauthorize-with-register."
-"7035","Initial transaction is not a register.The transaction for starting a schedule must be a register, a debit-with-register or a preauthorize-with-register."
-"7036","Invalid initial period. The period between the initial and second transaction must be greater than 24 hours."
-"7040","The scheduleId is not valid or does not match to the connector."
-"7050","The startDateTime is invalid or older than 24 hours."
-"7060","The continueDateTime is invalid or older than 24 hours."
-"7070","The status of the schedule is not valid for the requested operation."
+"Please enter a valid number in this field.","Please enter a valid number in this field."
+"This card type is not supported.","This card type is not supported."
+"Expiration Date","Expiration Date"
+"Incorrect credit card expiration date.","Incorrect credit card expiration date."
+CVV,CVV
+"Place Order","Place Order"
+"Allsecureexchange Pay","Allsecureexchange Pay"
+Void,Void
+"You want to securely and quickly accept payments 
+on your online shop or mobile app by using one of the leading gateway technologies? 
+Looking for a PCI compliant payment solution that includes proven fraud prevention mechanism? 
+Wanting to seamlessly integrate the most common national and international payment methods? 
+We will support you on selecting suitable packages and help you to make the right decisions
+ in accepting and managing your payment transactions anytime, anywhere.","You want to securely and quickly accept payments 
+on your online shop or mobile app by using one of the leading gateway technologies? 
+Looking for a PCI compliant payment solution that includes proven fraud prevention mechanism? 
+Wanting to seamlessly integrate the most common national and international payment methods? 
+We will support you on selecting suitable packages and help you to make the right decisions
+ in accepting and managing your payment transactions anytime, anywhere."
+Enabled,Enabled
+Title,Title
+"This controls the title which the user sees during checkout.","This controls the title which the user sees during checkout."
+Description,Description
+"This controls the descriptive text which the user sees while choosing this payment option.","This controls the descriptive text which the user sees while choosing this payment option."
+"Operation Mode","Operation Mode"
+"Checkout Mode","Checkout Mode"
+"<strong>Payment.js Javascript Integration</strong><br/>
+                    With the payment.js integration you can securely accept card payments and 
+                    integrate card number and CVV collection directly into your shop website 
+                    without the need for redirecting to a separate payment form. 
+                    The payment.js library renders 2 separate iFrames for card number and CVV/CVC in your checkout page. 
+                    This reduces your PCI-DSS scope to as low as it can get (PCI-DSS SAQ-A).<br/><br/>
+                    <strong>Full-Page Redirect</strong><br/>
+                    Customer are redirected to the Payment Service Provider (PSP) page. 
+                    Here, the customer fills in his or her payment details, and after paying, 
+                    is redirected back to your website to complete the checkout process.","<strong>Payment.js Javascript Integration</strong><br/>
+                    With the payment.js integration you can securely accept card payments and 
+                    integrate card number and CVV collection directly into your shop website 
+                    without the need for redirecting to a separate payment form. 
+                    The payment.js library renders 2 separate iFrames for card number and CVV/CVC in your checkout page. 
+                    This reduces your PCI-DSS scope to as low as it can get (PCI-DSS SAQ-A).<br/><br/>
+                    <strong>Full-Page Redirect</strong><br/>
+                    Customer are redirected to the Payment Service Provider (PSP) page. 
+                    Here, the customer fills in his or her payment details, and after paying, 
+                    is redirected back to your website to complete the checkout process."
+"API Credentials","API Credentials"
+"API User","API User"
+"Please enter your Exchange API User. This is needed in order to take the payment.","Please enter your Exchange API User. This is needed in order to take the payment."
+"API Password","API Password"
+"Please enter your Exchange API Password. This is needed in order to take the payment.","Please enter your Exchange API Password. This is needed in order to take the payment."
+"API Key","API Key"
+"Please enter your Exchange API Key. This is needed in order to take the payment.","Please enter your Exchange API Key. This is needed in order to take the payment."
+"Shared Secret","Shared Secret"
+"Integration Key","Integration Key"
+"Public Integration Key required only if payment.js integration required.","Public Integration Key required only if payment.js integration required."
+"Payment Details","Payment Details"
+"Transaction Type","Transaction Type"
+"<strong>Debit: </strong>Debits the end customer with the given amount.<br/>
+                    <strong>Preauthorize: </strong>Reserves the payment amount on the customer's payment instrument. 
+                    Preauthorization must be captured afterwards to conclude the transaction.","<strong>Debit: </strong>Debits the end customer with the given amount.<br/>
+                    <strong>Preauthorize: </strong>Reserves the payment amount on the customer's payment instrument. 
+                    Preauthorization must be captured afterwards to conclude the transaction."
+"Accepted Cards","Accepted Cards"
+"Select the cards which you would like to accept","Select the cards which you would like to accept"
+"Enable transaction details in the confirmation email","Enable transaction details in the confirmation email"
+"When enabled, plugin will add transaction details in the order confirmation email.<br/><br/>
+                        <strong>How to add transaction data to email</strong><br/>
+                        <strong>Step 1:</strong> MARKETING => Email Templates => Add New Template<br/>
+                        <strong>Step 2:</strong> Load Default Template => Select Template => Select Sales => New Order => Click Load Template<br/>
+                        <strong>Step 3:</strong> Template Content => Add this piece of code {{block class=""Allsecureexchange\Allsecureexchange\Block\PaymentInfo"" order_id=$order_id}} to template where you would like to display the Allsecureexchange payment information.<br/>
+                        For example, you can add this under Payment method display like below:<br/>
+                        {{block class=""Allsecureexchange\Allsecureexchange\Block\PaymentInfo"" order_id=$order_id}}<br/>
+                        <strong>Step 4:</strong> Enter Template Name  like ""Sales New Order Confirmation"" => Hit Save Template button.<br/>
+                        <strong>Step 5:</strong> STORES => Configuration => Sales => Sales Emails => Order => New Order Confirmation Template => ""Sales New Order Confirmation"" => Save Config<br/>
+                        <strong>Step 6:</strong> SYSTEM => Cache Management => Flush Magento Cache<br/><br/>
+                        Repeat Steps 1-6 to add transaction details into the guest order confirmation email, select 'New Order for Guest' template<br/><br/>
+                        Or if you have already added a template for the new order confirmation template for customization, then just add this piece of code {{block class=""Allsecureexchange\Allsecureexchange\Block\PaymentInfo"" order_id=$order_id}} to template content where you would like to display the Allsecureexchange payment information.","When enabled, plugin will add transaction details in the order confirmation email.<br/><br/>
+                        <strong>How to add transaction data to email</strong><br/>
+                        <strong>Step 1:</strong> MARKETING => Email Templates => Add New Template<br/>
+                        <strong>Step 2:</strong> Load Default Template => Select Template => Select Sales => New Order => Click Load Template<br/>
+                        <strong>Step 3:</strong> Template Content => Add this piece of code {{block class=""Allsecureexchange\Allsecureexchange\Block\PaymentInfo"" order_id=$order_id}} to template where you would like to display the Allsecureexchange payment information.<br/>
+                        For example, you can add this under Payment method display like below:<br/>
+                        {{block class=""Allsecureexchange\Allsecureexchange\Block\PaymentInfo"" order_id=$order_id}}<br/>
+                        <strong>Step 4:</strong> Enter Template Name  like ""Sales New Order Confirmation"" => Hit Save Template button.<br/>
+                        <strong>Step 5:</strong> STORES => Configuration => Sales => Sales Emails => Order => New Order Confirmation Template => ""Sales New Order Confirmation"" => Save Config<br/>
+                        <strong>Step 6:</strong> SYSTEM => Cache Management => Flush Magento Cache<br/><br/>
+                        Repeat Steps 1-6 to add transaction details into the guest order confirmation email, select 'New Order for Guest' template<br/><br/>
+                        Or if you have already added a template for the new order confirmation template for customization, then just add this piece of code {{block class=""Allsecureexchange\Allsecureexchange\Block\PaymentInfo"" order_id=$order_id}} to template content where you would like to display the Allsecureexchange payment information."
+"Enable transaction details in the confirmation page","Enable transaction details in the confirmation page"
+"When enabled, plugin will add transaction details in the order confirmation page","When enabled, plugin will add transaction details in the order confirmation page"
+"Additional Settings","Additional Settings"
+Debug,Debug
+Countries,Countries
+"Specific Countries","Specific Countries"
+"Sort Order","Sort Order"

@@ -1,10 +1,16 @@
 <?xml version="1.0"?>
-<body>
-    <referenceContainer name="order.success.additional.info">
-        <block class="Allsecureexchange\Allsecureexchange\Block\OnePage\Success"
-               name="custom.order.success"
-               template="Allsecureexchange_Allsecureexchange::order/success.phtml"
-               after="-">
-        </block>
-    </referenceContainer>
-</body>  
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Allsecureexchange_Allsecureexchange::css/allsecureexchange.css"/>
+        <link src="Allsecureexchange_Allsecureexchange::js/allsecureexchange.js"/>
+    </head>
+    <body>
+        <referenceContainer name="order.success.additional.info">
+            <block class="Allsecureexchange\Allsecureexchange\Block\Success"
+                   name="allsecurepay_success"
+                   template="Allsecureexchange_Allsecureexchange::success.phtml"
+                   after="-">
+            </block>
+        </referenceContainer>
+    </body>
+</page>

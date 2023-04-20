@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="allsecureexchange_order" resource="default" engine="innodb" comment="Allsecureexchange Table">
+        <column xsi:type="int" name="id" padding="10" unsigned="false" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="varchar" name="order_id" nullable="false" length="100" comment="Order ID"/>
+        <column xsi:type="varchar" name="transaction_mode" nullable="true" length="100" comment="Mode-live or test"/>
+        <column xsi:type="varchar" name="checkout_type" nullable="true" length="100" comment="Type-debit or preauthorize"/>
+        <column xsi:type="varchar" name="transaction_type" nullable="true" length="100" comment="Type-debit or preauthorize"/>
+        <column xsi:type="varchar" name="transaction_id" nullable="true" length="256" comment="Transaction Id"/>
+        <column xsi:type="varchar" name="status" nullable="true" length="100" comment="Transaction status"/>
+        <column xsi:type="text" name="response" nullable="true" comment="Raw json response"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+</schema>
