@@ -2,7 +2,7 @@
 
 Accept payments in your Magento store using AllSecure **EXCHANGE** Platform.
 
-Current version: 2.0.0
+Current version: 2.0.1
 
 See a fully functional WooCommerce <a href="http://demo.allsecure.xyz/cart/exchange/mage" target="_new">demo store</a> with AllSecure **EXCHANGE** as a payment gateway.
 

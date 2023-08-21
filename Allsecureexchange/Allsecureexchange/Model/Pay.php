@@ -152,13 +152,13 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
      * @param \Magento\Payment\Helper\Data $paymentData
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Payment\Model\Method\Logger $logger
-     * @param \Magento\Framework\Model\ResourceModel\AbstractResource $resource
-     * @param \Magento\Framework\Data\Collection\AbstractDb $resourceCollection
      * @param \Magento\Sales\Model\Service\InvoiceService $invoiceService
      * @param \Magento\Framework\DB\Transaction $transaction
      * @param \Magento\Framework\Locale\Resolver $locale
-     * @param array $data
+     * @param \Magento\Framework\Model\ResourceModel\AbstractResource $resource
+     * @param \Magento\Framework\Data\Collection\AbstractDb $resourceCollection
      * @param \Magento\Directory\Helper\Data $directory
+	 * @param array $data
      *
      */
     public function __construct(
@@ -177,13 +177,13 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
         \Magento\Payment\Helper\Data $paymentData,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Payment\Model\Method\Logger $logger,
-        \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
-        \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
-        \Magento\Sales\Model\Service\InvoiceService $invoiceService,
+		\Magento\Sales\Model\Service\InvoiceService $invoiceService,
         \Magento\Framework\DB\Transaction $transaction,
         \Magento\Framework\Locale\Resolver $locale,
-        array $data = [],
-        \Magento\Directory\Helper\Data $directory = null
+        \Magento\Framework\Model\ResourceModel\AbstractResource $resource = null,
+        \Magento\Framework\Data\Collection\AbstractDb $resourceCollection = null,
+        \Magento\Directory\Helper\Data $directory = null,
+		array $data = []
     ) {
         $this->allsecurepayHelper = $allsecurepayHelper;
         $this->orderSession = $orderSession;
@@ -683,29 +683,31 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
     public function createInvoice($order, $transaction_id, $invoice_type='offline')
     {
         if(!$order->canInvoice()) {
-            throw new \Exception(__('Cannot create an invoice.'));
-        }
-        
-        $invoice = $this->invoiceService->prepareInvoice($order);
-
-        if (!$invoice->getTotalQty()) {
-            throw new \Exception(__('Cannot create an invoice without products.'));
-        }
-        
-        if ($invoice_type == 'offline') {
-            $invoice->setRequestedCaptureCase(\Magento\Sales\Model\Order\Invoice::CAPTURE_OFFLINE);
+            //throw new \Exception(__('Cannot create an invoice.'));
         } else {
-            $invoice->setRequestedCaptureCase(\Magento\Sales\Model\Order\Invoice::NOT_CAPTURE);
-            $invoice->setCanVoidFlag(1);
+        
+            $invoice = $this->invoiceService->prepareInvoice($order);
+
+            if (!$invoice->getTotalQty()) {
+                //throw new \Exception(__('Cannot create an invoice without products.'));
+            } else {
+
+                if ($invoice_type == 'offline') {
+                    $invoice->setRequestedCaptureCase(\Magento\Sales\Model\Order\Invoice::CAPTURE_OFFLINE);
+                } else {
+                    $invoice->setRequestedCaptureCase(\Magento\Sales\Model\Order\Invoice::NOT_CAPTURE);
+                    $invoice->setCanVoidFlag(1);
+                }
+
+                $invoice->register();
+                $invoice->setTransactionId($transaction_id);
+                $invoice->save();
+
+                $transactionSave = $this->transaction->addObject($invoice);
+                $this->transaction->addObject($invoice->getOrder());
+                $transactionSave->save();
+            }
         }
-        
-        $invoice->register();
-        $invoice->setTransactionId($transaction_id);
-        $invoice->save();
-        
-        $transactionSave = $this->transaction->addObject($invoice);
-        $this->transaction->addObject($invoice->getOrder());
-        $transactionSave->save();
     }
     
     /**
