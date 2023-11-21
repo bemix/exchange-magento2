@@ -20,15 +20,9 @@ use Exchange\Client\Transaction\VoidTransaction as AllsecureVoidTransaction;
 use Exchange\Client\Transaction\Result as AllsecureResult;
 
 
-class Pay extends \Magento\Payment\Model\Method\AbstractMethod
+class PayAbstract extends \Magento\Payment\Model\Method\AbstractMethod
 {
-    /**
-     * Payment method code
-     *
-     * @var string
-     */
-    protected $_code = 'allsecureexchange';
-    
+
     /**
      * @var bool
      */
@@ -250,42 +244,6 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
     }
     
     /**
-     * Is method available
-     *
-     * @param Magento\Quote\Api\Data\CartInterface $quote
-     *
-     * @return bool
-     */
-    public function isAvailable(\Magento\Quote\Api\Data\CartInterface $quote = null)
-    {
-        $isAvailable = parent::isAvailable($quote);
-       if ($isAvailable) {
-            $api_key = $this->getConfigValue('api_key', $quote ? $quote->getStoreId() : null);
-            $shared_secret = $this->getConfigValue('shared_secret', $quote ? $quote->getStoreId() : null);
-            $api_user = $this->getConfigValue('api_user', $quote ? $quote->getStoreId() : null);
-            $api_passowrd = $this->getConfigValue('api_passowrd', $quote ? $quote->getStoreId() : null);
-            $integration_key = $this->getConfigValue('integration_key', $quote ? $quote->getStoreId() : null);
-            
-            if (empty($api_key) || empty($shared_secret) || empty($api_user) || empty($api_passowrd) || empty($integration_key)) {
-                $isAvailable = false;
-            }
-        }
-        return $isAvailable;
-    }
-    
-    /**
-     * Can Use For Currency
-     *
-     * @param string $currencyCode
-     *
-     * @return bool
-     */
-    public function canUseForCurrency($currencyCode)
-    {
-        return true;
-    }
-    
-    /**
      * Is Initialize Needed
      *
      * @return bool
@@ -348,7 +306,7 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
      */
     public function getOrderPlaceRedirectUrl()
     {
-        return $this->urlBuilder->getUrl('allsecureexchange/index/pay');
+        return $this->urlBuilder->getUrl('allsecureexchange/additional/pay');
     }
     
     /**
@@ -360,7 +318,7 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
      */
     public function getCheckoutRedirectUrl($params = [])
     {
-        return $this->urlBuilder->getUrl('allsecureexchange/index/pay', $params);
+        return $this->urlBuilder->getUrl('allsecureexchange/additional/pay', $params);
     }
     
     /**
@@ -372,7 +330,7 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
      */
     public function getWebhookUrl($params = [])
     {
-        return $this->urlBuilder->getUrl('allsecureexchange/index/webhook', $params);
+        return $this->urlBuilder->getUrl('allsecureexchange/additional/webhook', $params);
     }
     
     /**
@@ -384,7 +342,7 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
      */
     public function getCallbackUrl($params = [])
     {
-        return $this->urlBuilder->getUrl('allsecureexchange/index/callback', $params);
+        return $this->urlBuilder->getUrl('allsecureexchange/additional/callback', $params);
     }
     
     /**
@@ -396,7 +354,7 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
      */
     public function getCancelUrl($params = [])
     {
-        return $this->urlBuilder->getUrl('allsecureexchange/index/cancel', $params);
+        return $this->urlBuilder->getUrl('allsecureexchange/additional/cancel', $params);
     }
     
     /**
@@ -408,7 +366,7 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
      */
     public function getErrorUrl($params = [])
     {
-        return $this->urlBuilder->getUrl('allsecureexchange/index/error', $params);
+        return $this->urlBuilder->getUrl('allsecureexchange/additional/error', $params);
     }
     
     /**
@@ -440,9 +398,9 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
      */
     public function log($message)
     {
-        $debug = $this->getConfigValue('debug');
+        $debug = $this->getConfigValueByPath('payment/allsecureexchange/debug');
         if ($debug) {
-            $filepath = $this->directory_list->getPath('log') . '/allsecureexchange.log';
+            $filepath = $this->directory_list->getPath('log') . '/allsecureexchange_additional.log';
             $this->fileDriver->filePutContents($filepath, date("Y-m-d H:i:s").": ", FILE_APPEND);
             $this->fileDriver->filePutContents(
                 $filepath,
@@ -506,7 +464,7 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
         $lang = strstr($haystack, '_', true);
         
         $testMode = false;
-        if ($this->getConfigValue('operation_mode') == 'test') {
+        if ($this->getConfigValueByPath('payment/allsecureexchange/operation_mode') == 'test') {
             $testMode = true;
         }
         
@@ -517,8 +475,8 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
         }
         
         $client = new AllsecureClient(
-            trim($this->getConfigValue('api_user')), 
-            trim($this->getConfigValue('api_passowrd')), 
+            trim($this->getConfigValueByPath('payment/allsecureexchange/api_user')), 
+            trim($this->getConfigValueByPath('payment/allsecureexchange/api_passowrd')), 
             trim($this->getConfigValue('api_key')), 
             trim($this->getConfigValue('shared_secret')), 
             strtoupper($lang),
@@ -538,7 +496,7 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
      * @param string $action
      * @return $this
      */
-    public function processTransaction($order, $token, $action, $installment_number='')
+    public function processTransaction($order, $action)
     {
         $client = $this->getClient();
         
@@ -627,15 +585,6 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
             ->setCancelUrl($this->getCancelUrl(['order_id' => $order->getIncrementId()]))
             ->setSuccessUrl($this->getCallbackUrl(['order_id' => $order->getIncrementId()]))
             ->setErrorUrl($this->getErrorUrl(['order_id' => $order->getIncrementId()]));
-        
-        if (isset($token)) {
-            $transasction->setTransactionToken($token);
-        }
-        
-        if (!empty($installment_number)) {
-            $extraData = ['installment' => $installment_number];
-            $transasction->setExtraData($extraData);
-        }
 
         if ($action == 'debit') {
             $this->log('Debit Transaction');
@@ -646,7 +595,7 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
             $this->log((array)($transasction));
             $result = $client->preauthorize($transasction);
         }
-        
+        $this->log((array)($result));
         return $result;
     }
 
@@ -658,9 +607,9 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
      * 
      * @return $this
      */
-    public function debitTransaction($order, $token, $installment_number)
+    public function debitTransaction($order)
     {
-        return $this->processTransaction($order, $token, 'debit', $installment_number);
+        return $this->processTransaction($order, 'debit');
     }
 
     /**
@@ -671,9 +620,9 @@ class Pay extends \Magento\Payment\Model\Method\AbstractMethod
      * 
      * @return $this
      */
-    public function preauthorizeTransaction($order, $token)
+    public function preauthorizeTransaction($order)
     {
-        return $this->processTransaction($order, $token, 'preauthorize');
+        return $this->processTransaction($order, 'preauthorize');
     }
 
     /**

@@ -5,5 +5,8 @@
         <method name="allsecureexchange">
             <allow_multiple_address>0</allow_multiple_address>
         </method>
+        <method name="allsecureexchange_sofort">
+            <allow_multiple_address>0</allow_multiple_address>
+        </method>
     </methods>
 </payment>

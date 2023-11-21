@@ -29,12 +29,24 @@ class AddAdditionalData extends AbstractDataAssignObserver
         $additionalData = new DataObject($additionalData);
         
         $transaction_token = $additionalData->getData('allsecurepay_transaction_token');
+        $allsecurepay_pay_installment = $additionalData->getData('allsecurepay_pay_installment');
+        $allsecurepay_installment_number = $additionalData->getData('allsecurepay_installment_number');
 
         $paymentModel = $this->readPaymentModelArgument($observer);
     
         $paymentModel->setAdditionalInformation(
             'allsecurepay_transaction_token',
             $transaction_token
+        );
+        
+        $paymentModel->setAdditionalInformation(
+            'allsecurepay_pay_installment',
+            $allsecurepay_pay_installment
+        );
+        
+        $paymentModel->setAdditionalInformation(
+            'allsecurepay_installment_number',
+            $allsecurepay_installment_number
         );
     }
 }

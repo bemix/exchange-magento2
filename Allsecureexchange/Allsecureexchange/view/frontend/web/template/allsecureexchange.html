@@ -112,6 +112,24 @@
                     </div>
                 </div>
             </div>
+            <!-- ko if: enable_installment -->
+            <div class="field" id="allsecurepay_pay_installment_container" style="display: none">
+                <label class="label" for="allsecurepay_pay_installment">
+                    <input type="checkbox" class="input-checkbox " name="allsecurepay_pay_installment" id="allsecurepay_pay_installment" />
+                    <span><!-- ko i18n: 'Pay in Installments'--><!-- /ko --></span>
+                </label>
+            </div>
+            <div class="field" id="allsecurepay_installment_number_container" style="display: none">
+                <label class="label" for="allsecurepay_installment_number">
+                    <span><!-- ko i18n: 'Select No. of installments'--><!-- /ko --></span>
+                </label>
+                <div class="control">
+                    <select name="allsecurepay_installment_number" id="allsecurepay_installment_number" style="width:100px;  min-height: 35px; text-align: center">
+
+                    </select>
+                  </div>
+            </div>
+            <!-- /ko -->
             
         </fieldset>
         <!-- /ko -->

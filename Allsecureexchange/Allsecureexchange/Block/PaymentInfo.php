@@ -79,9 +79,11 @@ class PaymentInfo extends \Magento\Framework\View\Element\Template
         $model = $this->payment;
         $order = $this->getRealOrder();
         if ($model->getConfigValue('transaction_email') && $order && $order->getId()) {
+            $model = $order->getPayment()->getMethodInstance();
             $paymentMethod = $order->getPayment()->getMethodInstance()->getCode();
-            if ($paymentMethod == 'allsecureexchange') {
+            if (preg_match('/allsecureexchange/', $paymentMethod)) {
                 $uuid = $this->helper->getTransactionResponseSingle($order->getId(), 'uuid');
+                $installment_number = $this->helper->getTransactionResponseSingle($order->getId(), 'installment_number');
 
                 $client = $model->getClient();
                 
@@ -102,12 +104,31 @@ class PaymentInfo extends \Magento\Framework\View\Element\Template
                     $amount = $statusResult->getAmount();
                     $currency = $statusResult->getCurrency();
                     $cardData = $statusResult->getreturnData();
-                    $cardHolder = $cardData->getcardHolder();
-                    $binBrand = strtoupper($cardData->getType());
-                    $expiryMonth = $cardData->getexpiryMonth();
-                    $expiryYear = $cardData->getexpiryYear();
-                    $firstSixDigits = $cardData->getfirstSixDigits();
-                    $lastFourDigits = $cardData->getlastFourDigits();
+                    
+                    $binBrand = '';
+                    $lastFourDigits = '';
+
+                    if (method_exists($cardData, 'getType')) {
+                        $binBrand = strtoupper($cardData->getType());
+                    }
+                    if (method_exists($cardData, 'getlastFourDigits')) {
+                        $lastFourDigits = $cardData->getlastFourDigits();
+                    }
+
+                    $bankName = '';
+                    $accountOwner = '';
+                    $iban = '';
+
+                    if (method_exists($cardData, 'getAccountOwner')) {
+                        $accountOwner = strtoupper($cardData->getAccountOwner());
+                    }
+                    if (method_exists($cardData, 'getBankName')) {
+                        $bankName = $cardData->getBankName();
+                    }
+                    if (method_exists($cardData, 'getIban')) {
+                        $iban = $cardData->getIban();
+                    }
+
                     $transactionId = $statusResult->getTransactionUuid() ?? NULL;
                     $extraData = $statusResult->getextraData();
 
@@ -126,6 +147,12 @@ class PaymentInfo extends \Magento\Framework\View\Element\Template
                     $params['authCode'] = $authCode;
                     $params['transactionId'] = $transactionId;
                     $params['timestamp'] = $timestamp;
+                    $params['installment_number'] = $installment_number;
+                    $params['accountOwner'] = $accountOwner;
+                    $params['bankName'] = $bankName;
+                    $params['iban'] = $iban;
+                    $params['amount'] = $amount;
+                    $params['currency'] = $currency;
                 }
 		return $params;
             }

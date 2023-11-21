@@ -3,7 +3,7 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Allsecureexchange\Allsecureexchange\Controller\Index;
+namespace Allsecureexchange\Allsecureexchange\Controller\Additional;
 
 require_once __DIR__.'/../../Services/initClientAutoload.php';
 
@@ -54,7 +54,7 @@ class Pay extends \Magento\Framework\App\Action\Action
      */
     public function __construct(
         \Allsecureexchange\Allsecureexchange\Helper\Data $helper,
-        \Allsecureexchange\Allsecureexchange\Model\Pay $payment,
+        \Allsecureexchange\Allsecureexchange\Model\PayAbstract $payment,
         \Magento\Sales\Model\OrderFactory $orderFactory,
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Framework\Controller\Result\Redirect $resultRedirectFactory,
@@ -86,46 +86,22 @@ class Pay extends \Magento\Framework\App\Action\Action
             if ($order && $order->getId() > 0) {
                 $order_id = $order->getId();
                 $payment = $order->getPayment();
+                $model = $payment->getMethodInstance();
                 
                 $transaction_token = '';
                 $installment_number = '';
                 
-                $action = $model->getConfigValue('payment_action');
+                $action = 'debit';
                 
-                if ($model->getConfigValue('checkout_mode') == 'paymentjs') {
-                    $transaction_token = $payment->getAdditionalInformation('allsecurepay_transaction_token');
-                    $transaction_token  = trim($transaction_token);
-                    
-                    if (empty($transaction_token)) {
-                        throw new \Exception(__('Invalid transaction token.'));
-                    }
-                    
-                    if ($model->getConfigValueByPath('payment/allsecureexchange_installments/active')) {
-                        $installment_availed = $payment->getAdditionalInformation('allsecurepay_pay_installment');
-                        if ($installment_availed) {
-                            $installment_number = $payment->getAdditionalInformation('allsecurepay_installment_number');
-                            if (!empty($installment_number)) {
-                                $installment_number  = trim($installment_number);
-                                $action = 'debit';
-                            }
-                        }
-                    }
-                }
-                
-                
-                if ($action == 'debit') {
-                    $result = $model->debitTransaction($order, $transaction_token, $installment_number);
-                } else {
-                    $result = $model->preauthorizeTransaction($order, $transaction_token);
-                }
+                $result = $model->debitTransaction($order);
 
                 // handle the result
                 if ($result->isSuccess()) {
                     $gatewayReferenceId = $result->getUuid();
                     
                     $this->helper->updateTransaction($order_id, 'transaction_id', $gatewayReferenceId);
-                    $this->helper->updateTransaction($order_id, 'transaction_mode', $model->getConfigValue('operation_mode'));
-                    $this->helper->updateTransaction($order_id, 'checkout_type', $model->getConfigValue('checkout_mode'));
+                    $this->helper->updateTransaction($order_id, 'transaction_mode', $model->getConfigValueByPath('payment/allsecureexchange/operation_mode'));
+                    $this->helper->updateTransaction($order_id, 'checkout_type', $model->getConfigValueByPath('payment/allsecureexchange/checkout_mode'));
                     $this->helper->updateTransaction($order_id, 'transaction_type', $action);
                     $this->helper->updateTransaction($order_id, 'response', json_encode($result->toArray()));
                     
@@ -142,9 +118,6 @@ class Pay extends \Magento\Framework\App\Action\Action
                         throw new \Exception($errorMessage);
                     } elseif ($result->getReturnType() == AllsecureResult::RETURN_TYPE_REDIRECT) {
                         //redirect the user
-                        if (!empty($installment_number)) {
-                            $this->helper->updateTransactionResponse($order_id, 'installment_number', $installment_number);
-                        }
                         $this->helper->updateTransaction($order_id, 'status', 'redirected');
                         $resultRedirect = $this->resultRedirectFactory->create();
                         $redirectLink = $result->getRedirectUrl();
@@ -152,9 +125,6 @@ class Pay extends \Magento\Framework\App\Action\Action
                         return $resultRedirect;
                     } elseif ($result->getReturnType() == AllsecureResult::RETURN_TYPE_PENDING) {
                         //payment is pending, wait for callback to complete
-                        if (!empty($installment_number)) {
-                            $this->helper->updateTransactionResponse($order_id, 'installment_number', $installment_number);
-                        }
                         $this->helper->updateTransaction($order_id, 'status', 'pending');
                         if ($action == 'debit') {
                             $comment1 = __('Allsecureexchange payment request is created successfully and but payment debt status received as pending. ');
@@ -177,9 +147,6 @@ class Pay extends \Magento\Framework\App\Action\Action
                     } elseif ($result->getReturnType() == AllsecureResult::RETURN_TYPE_FINISHED) {
                         //payment is finished, update your cart/payment transaction
                         if ($action == 'debit') {
-                            if (!empty($installment_number)) {
-                                $this->helper->updateTransactionResponse($order_id, 'installment_number', $installment_number);
-                            }
                             $this->helper->updateTransaction($order_id, 'status', 'debited');
                             $comment1 = __('Allsecureexchange payment is successfully debited. ');
                             $state = \Magento\Sales\Model\Order::STATE_PROCESSING;
@@ -212,7 +179,11 @@ class Pay extends \Magento\Framework\App\Action\Action
                     if (empty($errorCode)) {
                         $errorCode = $error->getAdapterCode();
                     }
-                    $errorMessage = \Allsecureexchange\Allsecureexchange\Model\Pay::getErrorMessageByCode($errorCode);
+                    if ($errorCode == '9999') {
+                        $errorMessage = $error->getMessage();
+                    } else {
+                        $errorMessage = \Allsecureexchange\Allsecureexchange\Model\Pay::getErrorMessageByCode($errorCode);
+                    }
                     throw new \Exception($errorMessage);
                 }
             } else {

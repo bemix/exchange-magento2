@@ -19,10 +19,13 @@
                                                         <item name="renders" xsi:type="array">
                                                             <item name="children" xsi:type="array">
                                                                 <item name="allsecureexchange-payments" xsi:type="array">
-                        <item name="component" xsi:type="string">Allsecureexchange_Allsecureexchange/js/allsecureexchange-payments</item>
+                                                                    <item name="component" xsi:type="string">Allsecureexchange_Allsecureexchange/js/allsecureexchange-payments</item>
                                                                     <item name="methods" xsi:type="array">
                                                                         <item name="allsecureexchange" xsi:type="array">
-                        <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                                            <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
+                                                                        </item>
+                                                                        <item name="allsecureexchange_sofort" xsi:type="array">
+                                                                            <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
                                                                         </item>
                                                                     </item>
                                                                 </item>

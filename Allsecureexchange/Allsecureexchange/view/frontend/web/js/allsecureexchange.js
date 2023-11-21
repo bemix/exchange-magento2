@@ -27,11 +27,16 @@ define([
             isValidBrand: false,
             isPaymentJsEnabled: false,
             allsecurepayPayment: null,
+            enable_installment: false,
         },
         initialize: function () {
             this._super();
             
             var self = this;
+            
+            if (window.checkoutConfig.payment.allsecureexchange.enable_installment) {
+                self.enable_installment = true;
+            }
  
             if (window.checkoutConfig.payment.allsecureexchange.checkout_mode == 'paymentjs') {
                 self.isPaymentJsEnabled = true;
@@ -72,6 +77,7 @@ define([
                     self.allsecurepayPayment.setCvvStyle(cvvStyle);
 
                     self.allsecurepayPayment.numberOn('input', function(data) {
+                        self.installmentHandler(data);
                         if (data.validNumber) {
                             self.isCardNumberValid = true;
                         } else {
@@ -101,9 +107,51 @@ define([
                 $(document).blur('#allsecurepay_expiration_date', function () {
                     self.allsecurepayValidateExpiry();
                 });
+                
+                
+                $(document).click('#allsecurepay_pay_installment', function () {
+                    if ($('#allsecurepay_pay_installment').is(':checked')) {
+                        $('#allsecurepay_installment_number_container').show();
+                    } else {
+                         $('#allsecurepay_installment_number_container').hide();
+                    }
+                });
             }
             
             return this;
+        },
+        installmentHandler: function (data) {
+            var self = this;
+            if ($('#allsecurepay_pay_installment_container').length > 0) {
+                var isInstallmentAllowed = self.getBins().includes(data.firstSix);
+                if (isInstallmentAllowed) {
+                    var cardBin = data.firstSix;
+                    $('#allsecurepay_pay_installment_container').show();
+                    self.updateInstallmentNumbers(cardBin);
+                } else {
+                    $('#allsecurepay_pay_installment_container').hide();
+                    $('#allsecurepay_installment_number_container').hide();
+                    $('#allsecurepay_pay_installment').prop('checked', false);
+                    $('#allsecurepay_installment_number').html('');
+                }
+            }
+        },
+        updateInstallmentNumbers: function (cardBin) {
+            $('#allsecurepay_installment_number').html('');
+            var installment_numbers = window.checkoutConfig.payment.allsecureexchange.allowed_installments[cardBin];
+            if (installment_numbers.length > 0) {
+                installment_numbers = installment_numbers.toString().split(",");
+                var optionText = '';
+                installment_numbers.forEach(function (installment_number) {
+                    installment_number = installment_number.trim();
+                    if (installment_number.length == 1) {
+                        installment_number = '0'+installment_number;
+                    }
+                    var option = '<option value="'+installment_number+'">'+installment_number+'</option>';
+                    optionText += option;
+                });
+                $('#allsecurepay_installment_number').html(optionText);
+            }
         },
         getInstructions: function () {
             return window.checkoutConfig.payment.instructions[this.item.method];
@@ -114,6 +162,10 @@ define([
         getCardSupported: function() {
             var card_supported = window.checkoutConfig.payment.allsecureexchange.card_supported;
             return card_supported;
+        },
+        getBins: function() {
+            var bins = window.checkoutConfig.payment.allsecureexchange.installment_bins;
+            return bins;
         },
         getExpiryMonths: function() {
             return window.checkoutConfig.payment.allsecureexchange.months;
@@ -318,11 +370,30 @@ define([
                 }
             });  
         },
+        isInstallmentAvailed: function() {
+            var self = this;
+            var availed = 0;
+            if (self.enable_installment && $('#allsecurepay_pay_installment').is(':checked')) {
+                var availed = 1;
+            }
+            return availed;
+        },
+        getInstallmentNumber: function() {
+            var self = this;
+            var installment_number = '';
+            if (self.enable_installment) {
+                installment_number = $('#allsecurepay_installment_number').val();
+            }
+            return installment_number;
+            
+        },
         getData: function () {
             var data = {
                 'method': this.getCode(),
                 'additional_data': {
-                    'allsecurepay_transaction_token': $('#allsecurepay_transaction_token').val()
+                    'allsecurepay_transaction_token': $('#allsecurepay_transaction_token').val(),
+                    'allsecurepay_pay_installment': this.isInstallmentAvailed(),
+                    'allsecurepay_installment_number': this.getInstallmentNumber()
                 }
             };
             return data;

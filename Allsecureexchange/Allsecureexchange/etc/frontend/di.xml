@@ -11,6 +11,7 @@
         <arguments>
             <argument name="configProviders" xsi:type="array">
                 <item name="allsecurepay_config_provider" xsi:type="object">Allsecureexchange\Allsecureexchange\Model\ConfigProvider</item>
+                <item name="allsecurepay_config_provider_additional" xsi:type="object">Allsecureexchange\Allsecureexchange\Model\ConfigProviderAdditional</item>
             </argument>
         </arguments>
     </type>

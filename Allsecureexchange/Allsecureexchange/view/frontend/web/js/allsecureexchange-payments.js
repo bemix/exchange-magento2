@@ -14,6 +14,10 @@ define(
                 type: 'allsecureexchange',
                 component: 'Allsecureexchange_Allsecureexchange/js/allsecureexchange'
             }
+            ,{
+                type: 'allsecureexchange_sofort',
+                component: 'Allsecureexchange_Allsecureexchange/js/allsecureexchange_additional'
+            }
         );
         return Component.extend({});
     }

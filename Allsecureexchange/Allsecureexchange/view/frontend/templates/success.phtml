@@ -13,8 +13,26 @@ if ($params) {
             <li class='allsecurepay-order-overview'><?php echo __('Transaction Codes')?> <strong><?php echo $params['authCode']?></strong></li>
             <?php }?>
             <li class='allsecurepay-order-overview'><?php echo __('Transaction ID')?> <strong><?php echo $params['transactionId']?></strong></li>
+            <?php if (isset($params['lastFourDigits']) && !empty($params['lastFourDigits'])) {?>
             <li class='allsecurepay-order-overview'><?php echo __('Card Type')?> <strong><?php echo $params['binBrand']?> *** <?php echo $params['lastFourDigits']?></strong></li>
+             <?php } ?>
+            <?php if (isset($params['bankName']) && !empty($params['bankName'])) {?>
+            <li class='allsecurepay-order-overview'><?php echo __('Bank Name')?> <strong><?php echo $params['bankName']?></strong></li>
+             <?php } ?>
+             <?php if (isset($params['accountOwner']) && !empty($params['accountOwner'])) {?>
+            <li class='allsecurepay-order-overview'><?php echo __('Account Owner')?> <strong><?php echo $params['accountOwner']?></strong></li>
+             <?php } ?>
+             <?php if (isset($params['iban']) && !empty($params['iban'])) {?>
+            <li class='allsecurepay-order-overview'><?php echo __('IBAN/Account Number')?> <strong><?php echo $params['iban']?></strong></li>
+             <?php } ?>
             <li class='allsecurepay-order-overview'><?php echo __('Payment Type')?> <strong><?php echo $params['transactionType']?></strong></li>
+            <li class='allsecurepay-order-overview'><?php echo __('Currency')?> <strong><?php echo $params['currency']?></strong></li>
+            <li class='allsecurepay-order-overview'><?php echo __('Amount Paid')?> <strong><?php echo $params['amount']?></strong></li>
+            <?php if (!empty($params['installment_number'])) {?>
+            <li class='allsecurepay-order-overview'>
+                <?php echo __('Chose to make payment in ')?> <strong><?php echo $params['installment_number']?> <?php echo __('installments')?></strong>
+            </li>
+            <?php } ?>
             <li class='allsecurepay-order-overview'><?php echo __('Transaction Time')?> <strong><?php echo $params['timestamp']?></strong></li>
         </ul>
     <?php } else { ?>
