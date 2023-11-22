@@ -1,0 +1,11 @@
+# Release Notes
+
+## v2.0.2 (2023-11-03)
+### Added
+- Installment option provided.
+- Additional payment methods are added.
+
+
+## Initial version 2.0.1 (2023-08-21)
+### Added
+- Module & payment extension
